@@ -3,12 +3,14 @@ import { describe, expect, it } from "vitest";
 
 describe("portfolio theme", () => {
   it("defines only the approved palette and Noto Sans KR", () => {
-    const sources = [
+    const sourceFiles = [
       "app/globals.css",
       "app/page.tsx",
       "public/favicon.svg",
-    ].map((file) => readFileSync(file, "utf8"));
+    ];
+    const sources = sourceFiles.map((file) => readFileSync(file, "utf8"));
     const css = sources[0];
+    const page = sources[1];
     const approved = new Set([
       "#FAFAF8",
       "#DADADA",
@@ -29,6 +31,8 @@ describe("portfolio theme", () => {
     expect(sources.join("\n")).not.toMatch(
       /(?:bg|text|border)-(?:white|black|slate|gray|zinc|neutral|stone)-?/,
     );
+    expect(page).toContain('text-[var(--secondary-ink)]');
+    expect(page).not.toContain('text-[var(--secondary)]');
     expect(css).toContain('"Noto Sans KR"');
   });
 });
