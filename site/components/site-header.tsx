@@ -3,7 +3,7 @@ export function SiteHeader() {
     <header className="border-b border-[var(--line)] bg-[var(--canvas)]">
       <nav
         aria-label="주요 메뉴"
-        className="mx-auto flex h-20 w-[min(100%-40px,1120px)] items-center justify-between sm:w-[min(100%-48px,1120px)]"
+        className="site-container flex h-20 items-center justify-between"
       >
         <a
           href="/"

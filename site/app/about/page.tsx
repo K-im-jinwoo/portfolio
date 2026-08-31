@@ -6,7 +6,7 @@ import { profile } from "@/content/profile";
 export default function AboutPage() {
   return (
     <main>
-      <section className="mx-auto grid w-[min(100%-40px,1120px)] items-center gap-14 py-20 sm:w-[min(100%-48px,1120px)] sm:py-28 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-20">
+      <section className="site-container mobile-stack grid items-center gap-14 py-20 sm:py-28 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-20">
         <div>
           <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
             ABOUT
@@ -21,14 +21,14 @@ export default function AboutPage() {
         <ProfilePortrait className="lg:max-w-[420px]" />
       </section>
 
-      <section className="mx-auto w-[min(100%-40px,1120px)] py-20 sm:w-[min(100%-48px,1120px)]">
+      <section className="site-container py-20">
         <CareerTimeline
           experience={profile.experience}
           education={profile.education}
         />
       </section>
 
-      <section className="mx-auto w-[min(100%-40px,1120px)] py-20 sm:w-[min(100%-48px,1120px)]">
+      <section className="site-container py-20">
         <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
           SUPPORTING EXPERIENCE
         </p>
@@ -43,7 +43,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section className="mx-auto w-[min(100%-40px,1120px)] py-20 sm:w-[min(100%-48px,1120px)]">
+      <section className="site-container py-20">
         <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
           SKILLS
         </p>
@@ -53,11 +53,11 @@ export default function AboutPage() {
         <SkillGroups skills={profile.skills} />
       </section>
 
-      <section className="mx-auto w-[min(100%-40px,1120px)] py-24 sm:w-[min(100%-48px,1120px)]">
+      <section className="site-container py-24">
         <p className="text-sm text-[var(--secondary-ink)]">CONTACT</p>
         <a
           href={`mailto:${profile.email}`}
-          className="mt-4 inline-block text-2xl font-semibold tracking-[-0.03em] text-[var(--ink)] underline decoration-[var(--line)] underline-offset-8 sm:text-4xl"
+          className="mobile-scroll-safe mt-4 inline-block text-2xl font-semibold tracking-[-0.03em] text-[var(--ink)] underline decoration-[var(--line)] underline-offset-8 sm:text-4xl"
         >
           {profile.email}
         </a>

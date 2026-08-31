@@ -10,7 +10,7 @@ export function ProjectRow({ index, project }: ProjectRowProps) {
     <li className="border-t border-[var(--line)]">
       <a
         href={`/projects/${project.slug}`}
-        className="group grid gap-4 py-8 sm:grid-cols-[56px_minmax(0,1fr)_auto] sm:items-start sm:gap-6"
+        className="mobile-stack mobile-scroll-safe group grid gap-4 py-8 sm:grid-cols-[56px_minmax(0,1fr)_auto] sm:items-start sm:gap-6"
       >
         <span className="text-sm font-medium text-[var(--secondary-ink)]">
           {String(index + 1).padStart(2, "0")}

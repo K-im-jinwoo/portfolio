@@ -36,7 +36,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main>
-      <article className="mx-auto w-[min(100%-40px,1120px)] py-20 sm:w-[min(100%-48px,1120px)] sm:py-28">
+      <article className="site-container py-20 sm:py-28">
         <a
           href="/#work"
           className="text-sm font-semibold text-[var(--secondary-ink)]"

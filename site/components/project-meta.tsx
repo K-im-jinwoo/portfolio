@@ -9,7 +9,7 @@ export function ProjectMeta({ project }: { project: Project }) {
   ];
 
   return (
-    <dl className="grid border-y border-[var(--line)] sm:grid-cols-2 lg:grid-cols-4">
+    <dl className="mobile-stack grid border-y border-[var(--line)] sm:grid-cols-2 lg:grid-cols-4">
       {items.map(([label, value]) => (
         <div
           key={label}

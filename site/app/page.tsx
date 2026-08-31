@@ -6,7 +6,7 @@ import { profile } from "@/content/profile";
 export default function HomePage() {
   return (
     <main>
-      <section className="mx-auto grid min-h-[calc(100vh-80px)] w-[min(100%-40px,1120px)] items-center gap-14 py-20 sm:w-[min(100%-48px,1120px)] lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-20">
+      <section className="site-container mobile-stack grid min-h-[calc(100vh-80px)] items-center gap-14 py-20 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-20">
         <div>
           <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
             {profile.nameKo} / {profile.nameEn}
@@ -27,7 +27,7 @@ export default function HomePage() {
       <section
         id="work"
         aria-labelledby="featured-work-title"
-        className="mx-auto w-[min(100%-40px,1120px)] scroll-mt-8 py-24 sm:w-[min(100%-48px,1120px)]"
+        className="site-container scroll-mt-8 py-24"
       >
         <ProjectList
           id="featured-work-title"
@@ -37,7 +37,7 @@ export default function HomePage() {
         />
       </section>
 
-      <section className="mx-auto w-[min(100%-40px,1120px)] pb-28 sm:w-[min(100%-48px,1120px)]">
+      <section className="site-container pb-28">
         <ProjectList
           id="additional-work-title"
           eyebrow="MORE WORK"

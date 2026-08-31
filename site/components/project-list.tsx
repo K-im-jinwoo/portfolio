@@ -15,7 +15,7 @@ export function ProjectList({
   title,
 }: ProjectListProps) {
   return (
-    <div>
+    <div className="mobile-scroll-safe">
       <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
         {eyebrow}
       </p>
