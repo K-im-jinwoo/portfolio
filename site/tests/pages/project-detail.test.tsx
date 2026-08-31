@@ -50,4 +50,25 @@ describe("project detail routes", () => {
       twitter: { images: [] },
     });
   });
+
+  it("links to the next project and wraps after the last project", async () => {
+    const first = render(
+      await ProjectPage({
+        params: Promise.resolve({ slug: "excel-data-converter" }),
+      }),
+    );
+    expect(
+      screen.getByRole("link", { name: /다음 프로젝트.*LLM 기반/ }),
+    ).toHaveAttribute("href", "/projects/wiki-knowledge-system");
+
+    first.unmount();
+    render(
+      await ProjectPage({
+        params: Promise.resolve({ slug: "lg-voc-dashboard" }),
+      }),
+    );
+    expect(
+      screen.getByRole("link", { name: /다음 프로젝트.*Excel 데이터 변환/ }),
+    ).toHaveAttribute("href", "/projects/excel-data-converter");
+  });
 });

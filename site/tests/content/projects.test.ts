@@ -27,6 +27,8 @@ describe("portfolio content", () => {
 
   it("publishes email but never a phone number", () => {
     expect(profile.email).toBe("jwkim6166@gmail.com");
-    expect(JSON.stringify(profile)).not.toMatch(/010[- ]?3515[- ]?6166/);
+    expect(JSON.stringify(profile)).not.toMatch(
+      /01[016789][- ]?\d{3,4}[- ]?\d{4}/,
+    );
   });
 });

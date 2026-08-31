@@ -15,12 +15,19 @@ function readApplicationSources(directory: string): string[] {
 
 describe("release privacy and responsive contract", () => {
   it("excludes the private phone number from source content", () => {
-    const source = ["app", "components", "content"]
+    const source = ["app", "components", "content", "public", "tests"]
       .flatMap(readApplicationSources)
       .join("\n");
+    const forbiddenControlWords = new RegExp(
+      `${["git", "hub"].join("")}|${["res", "ume"].join("")}|${[
+        "이력",
+        "서",
+      ].join("")}\\s*(?:다운로드|받기)`,
+      "i",
+    );
 
-    expect(source).not.toMatch(/010[- ]?3515[- ]?6166/);
-    expect(source).not.toMatch(/github|resume|이력서\s*(?:다운로드|받기)/i);
+    expect(source).not.toMatch(/01[016789][- ]?\d{3,4}[- ]?\d{4}/);
+    expect(source).not.toMatch(forbiddenControlWords);
   });
 
   it("locks the mobile gutter, stacking, overflow, focus, and motion rules", () => {

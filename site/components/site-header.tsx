@@ -14,6 +14,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-6 text-sm font-medium text-[var(--secondary-ink)] sm:gap-9">
           <a href="/#work">Work</a>
           <a href="/about">About</a>
+          <a href="/#contact">Contact</a>
         </div>
       </nav>
     </header>

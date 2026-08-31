@@ -34,6 +34,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   if (!project) notFound();
 
+  const currentIndex = projects.findIndex(({ slug }) => slug === project.slug);
+  const nextProject = projects[(currentIndex + 1) % projects.length];
+
   return (
     <main>
       <article className="site-container py-20 sm:py-28">
@@ -97,6 +100,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <p>{project.result}</p>
           </CaseStudySection>
         </div>
+
+        <nav
+          aria-label="프로젝트 이동"
+          className="border-t border-[var(--line)] pt-12"
+        >
+          <a
+            href={`/projects/${nextProject.slug}`}
+            className="mobile-scroll-safe grid gap-3 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-12"
+          >
+            <span className="text-sm font-semibold text-[var(--secondary-ink)]">
+              다음 프로젝트
+            </span>
+            <strong className="text-2xl tracking-[-0.03em] text-[var(--ink)] sm:text-3xl">
+              {nextProject.title} <span aria-hidden="true">→</span>
+            </strong>
+          </a>
+        </nav>
       </article>
     </main>
   );

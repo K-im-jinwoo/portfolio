@@ -9,7 +9,7 @@ export default function AboutPage() {
       <section className="site-container mobile-stack grid items-center gap-14 py-20 sm:py-28 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-20">
         <div>
           <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
-            ABOUT
+            {profile.nameKo} / {profile.nameEn}
           </p>
           <h1 className="mt-5 max-w-3xl text-[clamp(2.6rem,6vw,5rem)] font-semibold leading-[1.08] tracking-[-0.05em] text-[var(--ink)]">
             업무의 병목을 찾고, 개선을 실제 시스템으로 정착시킵니다.
@@ -18,7 +18,7 @@ export default function AboutPage() {
             {profile.intro}
           </p>
         </div>
-        <ProfilePortrait className="lg:max-w-[420px]" />
+        <ProfilePortrait size="about" />
       </section>
 
       <section className="site-container py-20">

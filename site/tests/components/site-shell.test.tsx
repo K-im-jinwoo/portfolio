@@ -24,9 +24,15 @@ describe("site shell", () => {
       "href",
       "/about",
     );
+    expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute(
+      "href",
+      "/#contact",
+    );
     expect(
       screen.getByRole("link", { name: "jwkim6166@gmail.com" }),
     ).toHaveAttribute("href", "mailto:jwkim6166@gmail.com");
-    expect(document.body.textContent).not.toMatch(/010[- ]?3515[- ]?6166/);
+    expect(document.body.textContent).not.toMatch(
+      /01[016789][- ]?\d{3,4}[- ]?\d{4}/,
+    );
   });
 });

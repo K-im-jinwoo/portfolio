@@ -9,5 +9,7 @@ describe("root metadata", () => {
     expect(layout).toContain("/og.png");
     expect(layout).toContain("openGraph");
     expect(layout).toContain("twitter");
+    expect(layout).toContain("NEXT_PUBLIC_SITE_URL");
+    expect(layout).not.toContain('?? "http://localhost:3000"');
   });
 });

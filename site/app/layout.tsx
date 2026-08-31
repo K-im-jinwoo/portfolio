@@ -6,18 +6,22 @@ import "./globals.css";
 const title = "김진우 | 업무 자동화 개발자";
 const description =
   "업무 시스템과 AI 워크플로로 반복 업무와 운영 병목을 개선하는 개발자 김진우의 포트폴리오";
-const configuredOrigin =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const configuredOrigin = process.env.NEXT_PUBLIC_SITE_URL;
 
 function getMetadataBase() {
+  if (!configuredOrigin) return undefined;
+
   try {
     const origin = new URL(configuredOrigin);
-    if (origin.protocol !== "http:" && origin.protocol !== "https:") {
-      throw new Error("Unsupported site URL protocol");
+    const isLocal = origin.hostname === "localhost";
+    if (origin.protocol !== "https:" && !isLocal) {
+      throw new Error("NEXT_PUBLIC_SITE_URL must use HTTPS");
     }
     return origin;
-  } catch {
-    return new URL("http://localhost:3000");
+  } catch (error) {
+    throw new Error("NEXT_PUBLIC_SITE_URL must be a valid trusted origin", {
+      cause: error,
+    });
   }
 }
 
