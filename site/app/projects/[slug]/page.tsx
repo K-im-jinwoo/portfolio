@@ -63,27 +63,34 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="mt-24">
           <CaseStudySection
             index="01"
+            label="OVERVIEW"
+            title="어떤 업무를 개선한 프로젝트인가"
+          >
+            <p>{project.summary}</p>
+          </CaseStudySection>
+          <CaseStudySection
+            index="02"
             label="PROBLEM"
             title="무엇이 업무를 어렵게 만들었는가"
           >
             <p>{project.problem}</p>
           </CaseStudySection>
           <CaseStudySection
-            index="02"
+            index="03"
             label="SOLUTION"
             title="문제를 어떻게 시스템으로 풀었는가"
           >
             <p>{project.solution}</p>
           </CaseStudySection>
           <CaseStudySection
-            index="03"
+            index="04"
             label="PROCESS"
             title="업무 흐름을 어떤 단계로 구성했는가"
           >
             <ProcessSteps steps={project.steps} />
           </CaseStudySection>
           <CaseStudySection
-            index="04"
+            index="05"
             label="RESULT"
             title="업무에 무엇이 남았는가"
           >

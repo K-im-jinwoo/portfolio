@@ -1,5 +1,9 @@
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { generateStaticParams } from "@/app/projects/[slug]/page";
+import ProjectPage, {
+  generateMetadata,
+  generateStaticParams,
+} from "@/app/projects/[slug]/page";
 import { getProjectBySlug } from "@/content/projects";
 
 describe("project detail routes", () => {
@@ -15,5 +19,35 @@ describe("project detail routes", () => {
 
   it("returns undefined for an unknown project", () => {
     expect(getProjectBySlug("missing-project")).toBeUndefined();
+  });
+
+  it("renders the explicit overview and case-study sections", async () => {
+    render(
+      await ProjectPage({
+        params: Promise.resolve({ slug: "excel-data-converter" }),
+      }),
+    );
+
+    expect(screen.getByText("OVERVIEW")).toBeInTheDocument();
+    expect(screen.getByText("PROBLEM")).toBeInTheDocument();
+    expect(screen.getByText("SOLUTION")).toBeInTheDocument();
+    expect(screen.getByText("PROCESS")).toBeInTheDocument();
+    expect(screen.getByText("RESULT")).toBeInTheDocument();
+  });
+
+  it("uses not-found for unknown slugs and produces item metadata", async () => {
+    await expect(
+      ProjectPage({ params: Promise.resolve({ slug: "missing-project" }) }),
+    ).rejects.toThrow("NEXT_NOT_FOUND");
+
+    await expect(
+      generateMetadata({
+        params: Promise.resolve({ slug: "wiki-knowledge-system" }),
+      }),
+    ).resolves.toMatchObject({
+      title: "LLM 기반 개인 지식 관리 시스템 | Jinwoo Kim",
+      openGraph: { images: [] },
+      twitter: { images: [] },
+    });
   });
 });
