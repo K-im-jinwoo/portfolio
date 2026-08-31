@@ -42,7 +42,7 @@ export type Project = {
   metrics: ProjectMetric[];
 };
 
-export const projects: Project[] = [
+const projectEvidence: Project[] = [
   {
     slug: "wiki-knowledge-system",
     title: "LLM 기반 개인 지식 관리 시스템",
@@ -120,7 +120,7 @@ export const projects: Project[] = [
     tier: "featured",
     snapshot: {
       problem:
-        "파일마다 헤더와 변환 규칙이 달라 반복 작업마다 설정과 코드 수정이 필요했습니다.",
+        "파일마다 헤더와 변환 규칙이 달라 반복 작업마다 수작업 설정이 필요했습니다.",
       role: "반복 업무 분석, 변환 규칙 구조 설계와 PySide6 프로그램 개발",
       change:
         "헤더와 변환 규칙을 사용자가 설정하고 저장·불러올 수 있는 재사용 도구로 구성했습니다.",
@@ -130,7 +130,7 @@ export const projects: Project[] = [
     comparison: {
       before: [
         "파일마다 다른 헤더와 규칙을 작업 때마다 다시 설정했습니다.",
-        "변환 절차가 개별 작업자의 코드 수정에 의존했습니다.",
+        "입력 형식이 달라질 때마다 변환 조건을 다시 구성했습니다.",
       ],
       after: [
         "사용자가 헤더와 변환 규칙을 직접 구성할 수 있게 했습니다.",
@@ -141,7 +141,7 @@ export const projects: Project[] = [
       "반복되는 Excel 변환 요청을 처리하면서 입력 형식만 달라질 뿐 같은 설정과 변환 절차가 되풀이되는 지점을 확인했습니다.",
     decisions: [
       "파일별 코드를 늘리는 대신 헤더와 변환 규칙을 데이터로 관리하도록 구성했습니다.",
-      "비개발 사용자도 직접 설정할 수 있도록 PySide6 기반 화면으로 구현했습니다.",
+      "사용자가 직접 설정할 수 있도록 PySide6 기반 화면으로 구현했습니다.",
       "규칙 저장과 불러오기를 제공해 같은 변환 조건을 다시 사용할 수 있게 했습니다.",
     ],
     system: [
@@ -169,7 +169,7 @@ export const projects: Project[] = [
     context: "HIAIR KOREA MES / WinForms 업무",
     stack: ["C#", ".NET", "WinForms", "Excel Export", "Stream"],
     summary:
-      "고해상도 이미지가 포함된 Excel Export의 메모리 부족과 처리 지연 원인을 이미지 처리 방식에서 개선한 사례입니다.",
+      "고해상도 이미지가 포함된 Excel Export에서 이미지 처리 방식을 변경한 사례입니다.",
     tier: "featured",
     snapshot: {
       problem:
@@ -191,9 +191,9 @@ export const projects: Project[] = [
       ],
     },
     discovery:
-      "실제 Excel Export 과정에서 특정 고해상도 이미지가 다수 포함될 때 메모리 부족과 처리 지연이 반복되는 조건을 확인했습니다.",
+      "Excel Export 과정에서 고해상도 이미지가 다수 포함될 때 메모리 부족과 처리 지연이 발생하는 것을 확인했습니다.",
     decisions: [
-      "Excel에 필요한 표시 크기를 기준으로 이미지를 400px로 먼저 조정했습니다.",
+      "Excel 삽입 전에 이미지를 400px로 먼저 조정했습니다.",
       "이미지 로딩은 Stream 기반으로 변경해 출력 파이프라인에 연결했습니다.",
     ],
     system: [
@@ -239,7 +239,7 @@ export const projects: Project[] = [
         "신청·접수·반려·확정 상태와 확정 이후 수정 제한까지 구현했습니다.",
     },
     discovery:
-      "여러 담당자와 단계로 이어지는 전과 업무를 하나의 화면에서 처리하려면 상태별 권한과 처리 순서를 함께 제어해야 했습니다.",
+      "신청부터 확정까지 이어지는 전과 업무를 한 화면에서 처리하려면 상태별 권한과 처리 순서를 함께 제어해야 했습니다.",
     decisions: [
       "업무 단계와 조회 대상을 7개 탭으로 나눠 한 화면에 구성했습니다.",
       "신청·접수·반려·확정 상태를 기준으로 수정 권한과 처리 기능을 제어했습니다.",
@@ -292,7 +292,7 @@ export const projects: Project[] = [
       { label: "이관", detail: "DB와 사내 서버 배포" },
     ],
     verification: [
-      "약 20만 건의 리뷰 중 약 3~4만 건을 직접 라벨링했습니다.",
+      "약 3~4만 건의 리뷰를 직접 라벨링했습니다.",
       "워드클라우드·도넛·바 차트 기반 시각화를 구현했습니다.",
       "D3.js SVG 중복 생성과 탭 전환 이벤트 구조를 개선했습니다.",
       "DB 데이터 이관, 사내 서버 배포와 담당자 시연을 수행했습니다.",
@@ -301,6 +301,22 @@ export const projects: Project[] = [
     metrics: [],
   },
 ];
+
+type LegacyProjectFields = {
+  problem: string;
+  solution: string;
+  result: string;
+  steps: ProjectStep[];
+};
+
+export const projects: Array<Project & LegacyProjectFields> =
+  projectEvidence.map((project) => ({
+    ...project,
+    problem: project.snapshot.problem,
+    solution: project.snapshot.change,
+    result: project.snapshot.scope,
+    steps: project.system ?? [],
+  }));
 
 export const featuredProjects = projects.filter(
   (project) => project.tier === "featured",

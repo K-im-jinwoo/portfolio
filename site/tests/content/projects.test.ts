@@ -71,6 +71,15 @@ describe("portfolio content", () => {
     );
   });
 
+  it("keeps the current detail page readable during the evidence migration", () => {
+    for (const project of projects) {
+      expect(project.problem).toBe(project.snapshot.problem);
+      expect(project.solution).toBe(project.snapshot.change);
+      expect(project.result).toBe(project.snapshot.scope);
+      expect(project.steps).toEqual(project.system ?? []);
+    }
+  });
+
   it("publishes email but never a phone number", () => {
     expect(profile.email).toBe("jwkim6166@gmail.com");
     expect(JSON.stringify(profile)).not.toMatch(
