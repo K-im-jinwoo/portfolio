@@ -9,6 +9,8 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
+    maxWorkers: 1,
+    pool: "forks",
     setupFiles: ["./tests/setup.ts"],
   },
 });
