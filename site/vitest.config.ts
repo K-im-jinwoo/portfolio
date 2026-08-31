@@ -5,6 +5,10 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "."),
+      "next/navigation": path.resolve(
+        import.meta.dirname,
+        "tests/stubs/next-navigation.ts",
+      ),
     },
   },
   test: {
