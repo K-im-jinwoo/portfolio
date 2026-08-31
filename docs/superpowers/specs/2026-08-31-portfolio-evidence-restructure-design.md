@@ -1,127 +1,125 @@
-# Portfolio Evidence Restructure Design
+# 증거 중심 포트폴리오 개편 설계
 
-## Objective
+## 목표
 
-Reframe the portfolio from a polished developer introduction into evidence that supports AI strategy and business-automation roles. Preserve the approved minimal visual system while making project prioritization, decision-making, validation boundaries, and measurable outcomes visible earlier.
+현재 포트폴리오를 깔끔한 개발자 소개에서 AI 전략·업무자동화 직무 역량을 증명하는 포트폴리오로 개선한다. 확정된 미니멀 디자인은 유지하면서 프로젝트 우선순위, 문제 해결 과정, 기술 선택 근거, 검증 범위와 측정 결과를 더 빠르게 확인할 수 있도록 구성한다.
 
-## Audience and Primary Task
+## 대상과 핵심 목적
 
-- Primary audience: hiring managers and interviewers for AI strategy, business automation, and internal-system improvement roles.
-- Primary task: understand within the first viewport what problems Jinwoo Kim solves, then reach the strongest case study with one action.
-- Secondary task: inspect how each project problem was discovered, why the implementation was chosen, what was verified, and where the evidence stops.
+- 주요 대상: AI 전략, 업무자동화, 사내 시스템 개선 직무의 채용 담당자와 면접관
+- 핵심 목적: 첫 화면에서 김진우 개발자가 해결하는 문제를 이해하고, 한 번의 동작으로 가장 강한 프로젝트에 접근하게 한다.
+- 보조 목적: 각 프로젝트에서 문제를 어떻게 발견했고, 왜 해당 구조를 선택했으며, 무엇을 검증했고, 증거의 한계가 어디까지인지 확인하게 한다.
 
-## Evidence Boundary
+## 증거 사용 원칙
 
-- Use only facts already present in the supplied resume and current portfolio content.
-- Do not add the suggested 10,000-row time, memory usage, automated-test count, macro preservation, read-only behavior, or `Schema → Validation → Execution` claims until source logs are verified.
-- Do not invent screenshots or imply that a personal MVP was deployed to production.
-- Keep unknown measurement conditions and unresolved causes in the limitations section instead of turning them into claims.
-- Remove defensive visitor-facing phrases such as “확인되지 않은 수치는 표시하지 않습니다.” Replace them with confirmed implementation facts.
+- 제공된 이력서와 현재 포트폴리오에서 확인된 사실만 사용한다.
+- 10,000행 처리 시간, 메모리 사용량, 자동화 테스트 수, 매크로 보존, 원본 읽기 전용, `Schema → Validation → Execution` 구조는 실제 로그가 확인되기 전까지 추가하지 않는다.
+- 존재하지 않는 화면을 만들거나 개인 MVP를 운영 시스템에 배포한 것처럼 표현하지 않는다.
+- 측정 조건이나 원인이 확인되지 않은 내용은 성과로 단정하지 않고 한계 항목에 기록한다.
+- “확인되지 않은 수치는 표시하지 않습니다” 같은 방어적인 문장은 제거하고, 확인된 구현 사실만 작성한다.
 
-## Content Model
+## 프로젝트 콘텐츠 모델
 
-Keep a single typed project source in `site/content/projects.ts`, but replace the mechanically repeated `problem`, `solution`, and `result` presentation with an evidence-oriented model.
+`site/content/projects.ts`를 단일 데이터 기준으로 유지한다. 다만 기존의 `problem`, `solution`, `result`를 모든 프로젝트에 동일하게 보여주는 구조는 증거 중심 모델로 교체한다.
 
-Each project will contain:
+각 프로젝트는 다음 정보를 가진다.
 
-- `tier`: `featured` or `supporting`.
-- `snapshot`: problem, role, core change, and confirmed scope.
-- `comparison`: optional Before and After bullet lists.
-- `discovery`: optional explanation of how the problem surfaced.
-- `decisions`: optional list of constraints, alternatives, and reasons.
-- `system`: optional ordered workflow steps using the existing process component.
-- `verification`: confirmed measurements or implementation checks only.
-- `limits`: application scope and unresolved measurement boundaries.
-- `metrics`: contextual result values; labels must identify the comparison baseline.
+- `tier`: `featured` 또는 `supporting`
+- `snapshot`: 문제, 담당 역할, 핵심 변화, 확인된 범위
+- `comparison`: 선택형 Before/After 목록
+- `discovery`: 선택형 문제 발견 과정
+- `decisions`: 선택형 제약 조건, 대안과 선택 이유
+- `system`: 선택형 시스템 처리 단계
+- `verification`: 확인된 측정값 또는 구현 확인 내용
+- `limits`: 적용 범위와 아직 확인되지 않은 조건
+- `metrics`: 비교 기준이 포함된 주요 결과값
 
-Optional sections are omitted when evidence is unavailable. This prevents five projects from appearing artificially identical.
+근거가 없는 선택형 섹션은 표시하지 않는다. 이를 통해 모든 프로젝트가 억지로 동일한 형태를 갖는 문제를 방지한다.
 
-## Project Priority
+## 프로젝트 우선순위
 
-The canonical project order and next-project navigation will be:
+프로젝트 목록과 다음 프로젝트 이동 순서는 아래와 같이 변경한다.
 
-1. LLM 기반 개인 지식 관리 시스템 — featured
-2. Excel 데이터 변환 자동화 프로그램 — featured
-3. 고해상도 이미지 Excel Export 성능 개선 — featured
-4. 학사 전과 업무 프로세스 시스템 — supporting
-5. LG전자 소비자 VoC 라벨링 및 시각화 시스템 — supporting
+1. LLM 기반 개인 지식 관리 시스템 — 대표 프로젝트
+2. Excel 데이터 변환 자동화 프로그램 — 대표 프로젝트
+3. 고해상도 이미지 Excel Export 성능 개선 — 대표 프로젝트
+4. 학사 전과 업무 프로세스 시스템 — 보조 프로젝트
+5. LG전자 소비자 VoC 라벨링 및 시각화 시스템 — 보조 프로젝트
 
-The Excel Export project remains third until verified before/after file-size or generation-time measurements are available.
+Excel Export의 파일 크기 또는 생성 시간 Before/After 측정값이 확인되기 전까지는 3순위로 유지한다.
 
-## Home Page
+## 홈 화면
 
-### Hero
+### Hero 영역
 
-- Replace the headline with: `업무 현장의 병목을 발견하고, 자동화와 AI로 실제 사용할 수 있는 시스템을 만듭니다.`
-- Replace the English-only role with `AI·업무자동화 개발자`.
-- Set the hero minimum height to 70vh on desktop and remove the minimum-height constraint on mobile.
-- Reduce the home portrait from 260px to 220px.
-- Add a clear `대표 사례 보기` anchor linking to `#work`.
-- Preserve the current five-color palette, Noto Sans KR, typography character, borders, and restrained motion.
+- 제목을 `업무 현장의 병목을 발견하고, 자동화와 AI로 실제 사용할 수 있는 시스템을 만듭니다.`로 변경한다.
+- 영문 역할명 대신 `AI·업무자동화 개발자`를 표시한다.
+- 데스크톱 Hero 최소 높이를 `70vh`로 설정하고 모바일에서는 최소 높이 제한을 제거한다.
+- 홈 프로필 이미지를 260px에서 220px로 줄인다.
+- `#work`로 이동하는 `대표 사례 보기` CTA를 추가한다.
+- 기존 5색 팔레트, Noto Sans KR, 글자 계층, 테두리와 절제된 움직임은 유지한다.
 
-### First-Viewport Evidence
+### 첫 화면의 프로젝트 노출
 
-At a 1294×912 desktop viewport, the selected-work heading or the beginning of the first project row must be visible without scrolling. The first listed project must be the LLM WIKI case study.
+1294×912 데스크톱 화면에서 스크롤하지 않아도 대표 프로젝트 섹션 제목이나 첫 번째 프로젝트 행의 일부가 보여야 한다. 첫 프로젝트는 LLM WIKI 프로젝트여야 한다.
 
-## Project Detail Page
+## 프로젝트 상세 페이지
 
-Remove the duplicated Overview section. Render the following sequence, omitting unavailable optional sections:
+상단 Summary와 중복되는 Overview 섹션을 제거한다. 각 프로젝트는 근거가 있는 항목만 아래 순서로 표시한다.
 
 1. `한눈에 보는 결과`
-   - Problem
-   - My role
-   - Core change
-   - Confirmed scope
+   - 문제
+   - 내 역할
+   - 핵심 변화
+   - 확인된 범위
 2. `Before → After`
 3. `문제를 어떻게 발견했는가`
 4. `왜 이 구조를 선택했는가`
 5. `실제 시스템`
-   - Reuse the existing workflow-step component as a code-native process diagram.
-   - Do not add fabricated product screenshots.
+   - 기존 처리 단계 컴포넌트를 코드 기반 프로세스 도식으로 재사용한다.
+   - 실제 화면처럼 보이는 가짜 스크린샷은 추가하지 않는다.
 6. `검증`
 7. `적용 범위와 한계`
 
-The page must distinguish implementation facts, measured results, and unverified operational impact.
+구현 사실, 실측 결과, 확인되지 않은 운영 효과가 서로 섞이지 않도록 구분한다.
 
-## LLM WIKI Evidence
+## LLM WIKI 프로젝트 증거
 
-Display the timing evidence as a comparison rather than two isolated numbers:
+응답 시간을 독립된 숫자 두 개가 아니라 다음 비교 구조로 표시한다.
 
-- 기존 질의 흐름: 약 80–120초
+- 기존 질의 흐름: 약 80~120초
 - 자동화 후 최초 실행: 10.3초
 - 동일 흐름 재실행: 1.02초
 
-State that these values belong to a personal WIKI MVP. Do not attribute the 1.02-second rerun to caching or a particular optimization because the cause was not separately measured. Document count, environment, and repeat count remain evidence gaps.
+측정값은 개인 WIKI MVP 범위임을 명시한다. 재실행 1.02초가 캐시 효과인지 별도 최적화 결과인지는 분리 측정되지 않았으므로 특정 원인으로 단정하지 않는다. 문서 수, 실행 환경, 반복 횟수는 아직 확인되지 않은 증거 항목으로 남긴다.
 
-## Excel Automation Evidence
+## Excel 데이터 변환 자동화 증거
 
-Describe only the confirmed transition:
+현재 확인된 변화만 작성한다.
 
-- Before: file-specific transformation work required repeated manual adjustment.
-- After: users can configure, save, and reload headers and transformation rules in a reusable PySide6 tool.
+- Before: 파일별 데이터 변환 작업에 반복적인 수동 조정이 필요했다.
+- After: 사용자가 헤더와 변환 규칙을 설정하고 저장·불러오기 할 수 있는 재사용 가능한 PySide6 도구로 구성했다.
 
-Do not add performance, memory, macro-preservation, read-only, validation-pipeline, or automated-test claims without source verification.
+실제 자료가 확인되기 전까지 성능, 메모리, 매크로 보존, 읽기 전용, 검증 파이프라인, 자동화 테스트 관련 주장은 추가하지 않는다.
 
-## Other Result Copy
+## 나머지 프로젝트 결과 문장
 
-- Excel Export: state the confirmed 4,500px / approximately 3.6MB source-image condition, 400px pre-resize, and Stream-based loading. Do not claim a reduction percentage.
-- Academic transfer: state the seven-tab workflow and state-based edit/confirmation controls without an unverified processing-time claim.
-- LG VoC: state the confirmed labeling range, visualization work, rendering/event correction, data migration, internal deployment, and demonstration without adding performance claims.
+- Excel Export: 4,500px 이상·약 3.6MB 원본 이미지, 400px 사전 리사이징, Stream 기반 로딩을 확인된 사실로 작성한다. 감소율은 표시하지 않는다.
+- 학사 전과 시스템: 7개 탭 업무 흐름과 상태별 수정·확정 제어를 작성하고 처리 시간 주장은 추가하지 않는다.
+- LG VoC: 확인된 라벨링 범위, 시각화, 렌더링·이벤트 개선, 데이터 이관, 사내 배포와 시연을 작성하고 확인되지 않은 성능 수치는 추가하지 않는다.
 
-## About Page
+## About 페이지
 
-- Keep the development philosophy to three or four concise sentences.
-- Keep one compact career summary and a single-line education entry.
-- Remove the separate QMS essay; retain QMS in the career summary.
-- Replace the exhaustive skill-name grid with three evidence-linked capabilities:
-  - AI workflow → LLM WIKI
-  - Reusable work automation → Excel converter
-  - Runtime problem analysis → Excel Export
-- Remove the About contact section because the global footer already contains the email address.
+- 개발 철학을 3~4개의 간결한 문장으로 유지한다.
+- 경력 요약은 하나의 짧은 블록으로, 학력은 한 줄로 축소한다.
+- 별도의 QMS 장문 설명은 제거하고 경력 요약에 포함한다.
+- 기술 이름 나열 대신 다음 3개 역량을 관련 프로젝트와 연결한다.
+  - AI 업무 흐름 → LLM WIKI
+  - 재사용 가능한 업무 자동화 → Excel 데이터 변환
+  - 운영 문제 원인 분석 → Excel Export
+- 이메일은 공통 Footer에 있으므로 About의 별도 연락처 영역은 제거한다.
 
-## Components and Files
-
-Expected production changes:
+## 변경 예상 파일
 
 - `site/content/projects.ts`
 - `site/content/profile.ts`
@@ -130,37 +128,42 @@ Expected production changes:
 - `site/app/about/page.tsx`
 - `site/components/impact-metrics.tsx`
 - `site/components/profile-portrait.tsx`
-- New focused evidence components under `site/components/` as needed
-- Existing shared styling in `site/app/globals.css` only when a reusable rule is required
+- 필요한 경우 `site/components/` 아래에 작은 증거 전용 컴포넌트 추가
+- 공통 스타일이 필요한 경우에만 `site/app/globals.css` 변경
 
-The existing Vinext structure, routes, header, footer, metadata logic, palette, and package set remain unchanged.
+기존 Vinext 구조, 경로, 헤더, Footer, 메타데이터 처리 방식, 색상과 패키지 구성은 유지한다.
 
-## Social Preview
+## 소셜 미리보기
 
-The current social image contains the old primary headline. After the new copy is stable, refresh `site/public/og.png` once so the preview matches the new positioning while preserving the established palette and minimal visual identity. Do not include private contact information.
+현재 소셜 이미지는 기존 대표 문장을 사용한다. 새 문구가 확정된 뒤 기존 색상과 미니멀한 시각 스타일을 유지하면서 `site/public/og.png`를 한 번만 갱신한다. 개인 연락처는 포함하지 않는다.
 
-## Testing and Validation
+## 테스트와 검증
 
-Use test-first changes for each slice:
+각 작업은 테스트를 먼저 추가한 뒤 구현한다.
 
-- Project-content tests lock the new order, featured/supporting grouping, evidence fields, LLM comparison labels, and absence of defensive phrases.
-- Home-page tests lock the new headline, Korean role, CTA, reduced hero contract, and five project links.
-- Project-detail tests lock the new evidence sections, optional-section behavior, first/last navigation order, and unknown-slug behavior.
-- About tests lock the compact content, evidence-linked capabilities, and absence of duplicate contact content.
-- Metadata tests confirm existing title/description behavior remains valid after the copy change.
-- Run the complete test suite and production build.
-- Perform browser QA at 1294×912, 768px, 390px, and 320px. Confirm first-viewport project evidence, no horizontal overflow, natural Korean wrapping, keyboard focus, and representative detail-page rendering.
+- 프로젝트 데이터 테스트: 새 순서, 대표·보조 구분, 증거 필드, LLM 비교 문구와 방어적 문장 제거 확인
+- 홈 테스트: 새 제목, 한국어 역할명, CTA, 축소된 Hero, 프로젝트 링크 5개 확인
+- 상세 페이지 테스트: 증거 중심 섹션, 선택형 섹션, 첫·마지막 프로젝트 이동과 잘못된 경로 확인
+- About 테스트: 축소된 내용, 프로젝트 연결 역량, 중복 연락처 제거 확인
+- 메타데이터 테스트: 문구 변경 이후에도 기존 제목·설명 동작 유지 확인
+- 전체 테스트와 프로덕션 빌드 실행
+- 1294×912, 768px, 390px, 320px 브라우저 검수
+  - 첫 화면에서 프로젝트 증거 노출
+  - 가로 넘침 없음
+  - 자연스러운 한국어 줄바꿈
+  - 키보드 포커스
+  - 대표 상세 페이지 렌더링
 
-## Delivery and Git Boundary
+## Git과 전달 범위
 
-- Work only on `codex/portfolio-evidence-restructure` until the comparison is approved.
-- Commit the design, then implementation slices separately.
-- Do not merge to `main`, push the branch, or deploy without a later explicit user choice.
+- 비교가 승인되기 전까지 `codex/portfolio-evidence-restructure` 브랜치에서만 작업한다.
+- 설계와 구현 단계를 나누어 커밋한다.
+- 사용자의 별도 선택 없이 `main` 병합, 원격 푸시, 배포를 진행하지 않는다.
 
-## Non-goals
+## 제외 범위
 
-- No visual redesign or new color system.
-- No new dependency.
-- No fabricated quantitative evidence.
-- No product screenshot placeholders presented as real evidence.
-- No hosting or production deployment in this branch phase.
+- 전체 시각 디자인 개편
+- 신규 의존성 추가
+- 확인되지 않은 정량적 성과 추가
+- 실제 화면으로 오해할 수 있는 가짜 이미지 추가
+- 현재 브랜치 단계에서 호스팅 또는 운영 배포
