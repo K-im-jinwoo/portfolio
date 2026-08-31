@@ -70,6 +70,8 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family: "Noto Sans KR", "Noto Sans", system-ui, sans-serif;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 a {
@@ -107,7 +109,7 @@ a {
   }
 
   .mobile-scroll-safe {
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 }
 

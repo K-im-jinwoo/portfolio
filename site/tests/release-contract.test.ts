@@ -46,6 +46,9 @@ describe("release privacy and responsive contract", () => {
     expect(css).toContain("width: min(calc(100% - 40px), 1120px)");
     expect(css).toContain("overflow-x: clip");
     expect(css).toContain("grid-template-columns: minmax(0, 1fr) !important");
+    expect(css).toMatch(/body\s*{[^}]*word-break:\s*keep-all;/s);
+    expect(css).toContain("overflow-wrap: break-word");
+    expect(css).not.toContain("overflow-wrap: anywhere");
     expect(css).toContain(":focus-visible");
     expect(css).toContain("prefers-reduced-motion: reduce");
     expect(responsiveSources.match(/mobile-stack/g)).toHaveLength(5);
