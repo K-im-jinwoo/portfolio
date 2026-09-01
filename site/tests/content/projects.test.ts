@@ -49,13 +49,24 @@ describe("portfolio content", () => {
         change: expect.any(String),
         scope: expect.any(String),
       });
+      expect(Object.values(project.snapshot).every((value) => value.trim())).toBe(
+        true,
+      );
+      expect(project.verification.every((value) => value.trim())).toBe(true);
+      expect(project.limits.every((value) => value.trim())).toBe(true);
       expect(project.verification.length).toBeGreaterThan(0);
       expect(project.limits.length).toBeGreaterThan(0);
     }
 
     expect(JSON.stringify(projects)).not.toMatch(
-      /확인되지 않은 .*표시하지|수치는 표시하지 않습니다/,
+      /확인되지 않은 .*표시하지|수치는 표시하지 않습니다|근거 범위에 포함하지/,
     );
+  });
+
+  it("explains why the Excel export image strategy was selected", () => {
+    const excelExport = getProjectBySlug("excel-export-optimization");
+
+    expect(excelExport?.decisions?.join(" ")).toMatch(/위해|때문/);
   });
 
   it("expresses the WIKI response times as a comparison", () => {

@@ -102,6 +102,9 @@ describe("project detail routes", () => {
       expect(
         screen.queryByRole("heading", { name: "실제 시스템" }),
       ).not.toBeInTheDocument();
+      expect(
+        screen.getAllByTestId("case-study-index").map((node) => node.textContent),
+      ).toEqual(["01", "02", "03", "04"]);
     } finally {
       project.comparison = original.comparison;
       project.decisions = original.decisions;

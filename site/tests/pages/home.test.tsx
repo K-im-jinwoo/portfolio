@@ -30,7 +30,11 @@ describe("home page", () => {
 
     const hero = screen.getByTestId("home-hero");
     expect(hero.className).toContain("lg:min-h-[70vh]");
+    expect(hero.className).toContain("lg:py-12");
     expect(hero.className).not.toContain("min-h-[calc(100vh-80px)]");
+    expect(
+      screen.getByRole("heading", { level: 1 }).className,
+    ).toContain("5vw");
   });
 
   it("lists the LLM WIKI project first", () => {
