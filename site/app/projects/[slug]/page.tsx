@@ -50,7 +50,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       title: "한눈에 보는 결과",
       content: <ProjectSnapshotView snapshot={project.snapshot} />,
     },
-    ...(project.comparison
+    ...(project.comparison?.before.length && project.comparison.after.length
       ? [
           {
             label: "BEFORE / AFTER",
@@ -68,7 +68,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           },
         ]
       : []),
-    ...(project.decisions
+    ...(project.decisions?.length
       ? [
           {
             label: "DECISIONS",
@@ -77,7 +77,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           },
         ]
       : []),
-    ...(project.system
+    ...(project.system?.length
       ? [
           {
             label: "SYSTEM",

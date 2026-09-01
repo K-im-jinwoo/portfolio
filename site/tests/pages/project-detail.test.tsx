@@ -49,6 +49,9 @@ describe("project detail routes", () => {
     ).toBeInTheDocument();
     expect(screen.queryByText("OVERVIEW")).not.toBeInTheDocument();
     expect(screen.getByText("약 80~120초")).toBeInTheDocument();
+    expect(
+      screen.getAllByTestId("case-study-index").map((node) => node.textContent),
+    ).toEqual(["01", "02", "03", "04", "05", "06", "07"]);
   });
 
   it("omits unavailable optional evidence sections", async () => {
@@ -67,6 +70,43 @@ describe("project detail routes", () => {
     expect(
       screen.getByRole("heading", { name: "적용 범위와 한계" }),
     ).toBeInTheDocument();
+  });
+
+  it("omits optional evidence sections backed only by empty arrays", async () => {
+    const project = getProjectBySlug("academic-transfer-workflow");
+    if (!project) throw new Error("Expected academic transfer project");
+
+    const original = {
+      comparison: project.comparison,
+      decisions: project.decisions,
+      system: project.system,
+    };
+
+    project.comparison = { before: [], after: [] };
+    project.decisions = [];
+    project.system = [];
+
+    try {
+      render(
+        await ProjectPage({
+          params: Promise.resolve({ slug: "academic-transfer-workflow" }),
+        }),
+      );
+
+      expect(
+        screen.queryByRole("heading", { name: "Before → After" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("heading", { name: "왜 이 구조를 선택했는가" }),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("heading", { name: "실제 시스템" }),
+      ).not.toBeInTheDocument();
+    } finally {
+      project.comparison = original.comparison;
+      project.decisions = original.decisions;
+      project.system = original.system;
+    }
   });
 
   it("uses not-found for unknown slugs and produces item metadata", async () => {
