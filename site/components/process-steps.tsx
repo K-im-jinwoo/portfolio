@@ -1,6 +1,6 @@
-import type { Project } from "@/content/projects";
+import type { ProjectStep } from "@/content/projects";
 
-export function ProcessSteps({ steps }: { steps: Project["steps"] }) {
+export function ProcessSteps({ steps }: { steps: ProjectStep[] }) {
   return (
     <ol className="mobile-stack mt-8 grid border-y border-[var(--line)] sm:grid-cols-2 lg:grid-cols-4">
       {steps.map((step, index) => (

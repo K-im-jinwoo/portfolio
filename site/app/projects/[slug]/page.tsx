@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
+import { BeforeAfter } from "@/components/before-after";
 import { CaseStudySection } from "@/components/case-study-section";
+import { EvidenceList } from "@/components/evidence-list";
 import { ImpactMetrics } from "@/components/impact-metrics";
 import { ProcessSteps } from "@/components/process-steps";
 import { ProjectMeta } from "@/components/project-meta";
+import { ProjectSnapshotView } from "@/components/project-snapshot";
 import { getProjectBySlug, projects } from "@/content/projects";
 
 type ProjectPageProps = {
@@ -36,6 +40,63 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const currentIndex = projects.findIndex(({ slug }) => slug === project.slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
+  const sections: Array<{
+    label: string;
+    title: string;
+    content: ReactNode;
+  }> = [
+    {
+      label: "SNAPSHOT",
+      title: "한눈에 보는 결과",
+      content: <ProjectSnapshotView snapshot={project.snapshot} />,
+    },
+    ...(project.comparison
+      ? [
+          {
+            label: "BEFORE / AFTER",
+            title: "Before → After",
+            content: <BeforeAfter comparison={project.comparison} />,
+          },
+        ]
+      : []),
+    ...(project.discovery
+      ? [
+          {
+            label: "DISCOVERY",
+            title: "문제를 어떻게 발견했는가",
+            content: <p>{project.discovery}</p>,
+          },
+        ]
+      : []),
+    ...(project.decisions
+      ? [
+          {
+            label: "DECISIONS",
+            title: "왜 이 구조를 선택했는가",
+            content: <EvidenceList items={project.decisions} />,
+          },
+        ]
+      : []),
+    ...(project.system
+      ? [
+          {
+            label: "SYSTEM",
+            title: "실제 시스템",
+            content: <ProcessSteps steps={project.system} />,
+          },
+        ]
+      : []),
+    {
+      label: "VERIFICATION",
+      title: "검증",
+      content: <EvidenceList items={project.verification} />,
+    },
+    {
+      label: "SCOPE",
+      title: "적용 범위와 한계",
+      content: <EvidenceList items={project.limits} />,
+    },
+  ];
 
   return (
     <main>
@@ -64,41 +125,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         )}
 
         <div className="mt-24">
-          <CaseStudySection
-            index="01"
-            label="OVERVIEW"
-            title="어떤 업무를 개선한 프로젝트인가"
-          >
-            <p>{project.summary}</p>
-          </CaseStudySection>
-          <CaseStudySection
-            index="02"
-            label="PROBLEM"
-            title="무엇이 업무를 어렵게 만들었는가"
-          >
-            <p>{project.problem}</p>
-          </CaseStudySection>
-          <CaseStudySection
-            index="03"
-            label="SOLUTION"
-            title="문제를 어떻게 시스템으로 풀었는가"
-          >
-            <p>{project.solution}</p>
-          </CaseStudySection>
-          <CaseStudySection
-            index="04"
-            label="PROCESS"
-            title="업무 흐름을 어떤 단계로 구성했는가"
-          >
-            <ProcessSteps steps={project.steps} />
-          </CaseStudySection>
-          <CaseStudySection
-            index="05"
-            label="RESULT"
-            title="업무에 무엇이 남았는가"
-          >
-            <p>{project.result}</p>
-          </CaseStudySection>
+          {sections.map((section, index) => (
+            <CaseStudySection
+              key={section.title}
+              index={String(index + 1).padStart(2, "0")}
+              label={section.label}
+              title={section.title}
+            >
+              {section.content}
+            </CaseStudySection>
+          ))}
         </div>
 
         <nav

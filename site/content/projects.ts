@@ -42,7 +42,7 @@ export type Project = {
   metrics: ProjectMetric[];
 };
 
-const projectEvidence: Project[] = [
+export const projects: Project[] = [
   {
     slug: "wiki-knowledge-system",
     title: "LLM 기반 개인 지식 관리 시스템",
@@ -301,22 +301,6 @@ const projectEvidence: Project[] = [
     metrics: [],
   },
 ];
-
-type LegacyProjectFields = {
-  problem: string;
-  solution: string;
-  result: string;
-  steps: ProjectStep[];
-};
-
-export const projects: Array<Project & LegacyProjectFields> =
-  projectEvidence.map((project) => ({
-    ...project,
-    problem: project.snapshot.problem,
-    solution: project.snapshot.change,
-    result: project.snapshot.scope,
-    steps: project.system ?? [],
-  }));
 
 export const featuredProjects = projects.filter(
   (project) => project.tier === "featured",
