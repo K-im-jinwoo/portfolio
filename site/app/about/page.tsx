@@ -1,7 +1,7 @@
+import { CapabilityLinks } from "@/components/capability-links";
 import { CareerTimeline } from "@/components/career-timeline";
 import { ProfilePortrait } from "@/components/profile-portrait";
-import { SkillGroups } from "@/components/skill-groups";
-import { profile } from "@/content/profile";
+import { capabilities, profile } from "@/content/profile";
 
 export default function AboutPage() {
   return (
@@ -22,45 +22,20 @@ export default function AboutPage() {
       </section>
 
       <section className="site-container py-20">
+        <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
+          CORE CAPABILITIES
+        </p>
+        <h2 className="mb-12 mt-4 text-3xl font-semibold tracking-[-0.04em] text-[var(--ink)] sm:text-4xl">
+          역량을 프로젝트 증거로 연결했습니다.
+        </h2>
+        <CapabilityLinks items={capabilities} />
+      </section>
+
+      <section className="site-container py-20">
         <CareerTimeline
           experience={profile.experience}
           education={profile.education}
         />
-      </section>
-
-      <section className="site-container py-20">
-        <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
-          SUPPORTING EXPERIENCE
-        </p>
-        <h2 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[var(--ink)] sm:text-4xl">
-          HWASHIN QMS 업무 시스템 개발
-        </h2>
-        <p className="mt-6 max-w-3xl text-base leading-8 text-[var(--secondary-ink)]">
-          React·TypeScript 기반 검사 및 부적합 관리 화면을 개발하고, 반복되는
-          Dialog·Popup·탭 UI를 여러 화면에서 재사용할 수 있도록 공통 컴포넌트
-          기반 구축에 참여했습니다. MSSQL Stored Procedure 연계와 PM2 배포
-          과정에도 참여했습니다.
-        </p>
-      </section>
-
-      <section className="site-container py-20">
-        <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
-          SKILLS
-        </p>
-        <h2 className="mb-12 mt-4 text-3xl font-semibold tracking-[-0.04em] text-[var(--ink)] sm:text-4xl">
-          업무를 끝까지 연결하는 기술
-        </h2>
-        <SkillGroups skills={profile.skills} />
-      </section>
-
-      <section className="site-container py-24">
-        <p className="text-sm text-[var(--secondary-ink)]">CONTACT</p>
-        <a
-          href={`mailto:${profile.email}`}
-          className="mobile-scroll-safe mt-4 inline-block text-2xl font-semibold tracking-[-0.03em] text-[var(--ink)] underline decoration-[var(--line)] underline-offset-8 sm:text-4xl"
-        >
-          {profile.email}
-        </a>
       </section>
     </main>
   );

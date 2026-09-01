@@ -16,7 +16,10 @@ export function CaseStudySection({
   return (
     <section className="grid gap-6 border-t border-[var(--line)] py-14 md:grid-cols-[180px_minmax(0,1fr)] md:gap-12">
       <div>
-        <span className="text-xs font-semibold text-[var(--secondary-ink)]">
+        <span
+          data-testid="case-study-index"
+          className="text-xs font-semibold text-[var(--secondary-ink)]"
+        >
           {index}
         </span>
         <p className="mt-2 text-sm font-semibold tracking-[0.08em] text-[var(--secondary-ink)]">

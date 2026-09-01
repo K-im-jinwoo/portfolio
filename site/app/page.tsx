@@ -6,20 +6,31 @@ import { profile } from "@/content/profile";
 export default function HomePage() {
   return (
     <main>
-      <section className="site-container mobile-stack grid min-h-[calc(100vh-80px)] items-center gap-14 py-20 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-20">
+      <section
+        data-testid="home-hero"
+        className="site-container mobile-stack grid min-h-0 items-center gap-10 py-16 sm:py-20 lg:min-h-[70vh] lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16 lg:py-12"
+      >
         <div>
           <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
             {profile.nameKo} / {profile.nameEn}
           </p>
-          <h1 className="mt-6 max-w-3xl text-[clamp(2.75rem,7vw,5.6rem)] font-semibold leading-[1.06] tracking-[-0.055em] text-[var(--ink)]">
+          <h1 className="mt-6 max-w-3xl text-[clamp(2.75rem,5vw,4.5rem)] font-semibold leading-[1.06] tracking-[-0.055em] text-[var(--ink)]">
             {profile.headline}
           </h1>
           <p className="mt-8 max-w-2xl text-base leading-8 text-[var(--secondary-ink)] sm:text-lg">
             {profile.intro}
           </p>
-          <p className="mt-10 text-sm font-semibold text-[var(--ink)]">
-            {profile.role}
-          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-5">
+            <a
+              href="/#work"
+              className="inline-flex border-b border-[var(--ink)] pb-1 text-sm font-semibold text-[var(--ink)]"
+            >
+              대표 사례 보기 <span aria-hidden="true">↓</span>
+            </a>
+            <span className="text-sm font-semibold text-[var(--secondary-ink)]">
+              {profile.role}
+            </span>
+          </div>
         </div>
         <ProfilePortrait />
       </section>
@@ -27,7 +38,7 @@ export default function HomePage() {
       <section
         id="work"
         aria-labelledby="featured-work-title"
-        className="site-container scroll-mt-8 py-24"
+        className="site-container scroll-mt-8 py-20 lg:pb-24 lg:pt-16"
       >
         <ProjectList
           id="featured-work-title"

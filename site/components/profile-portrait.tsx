@@ -7,7 +7,7 @@ export function ProfilePortrait({
   className = "",
   size = "home",
 }: ProfilePortraitProps) {
-  const sizeClass = size === "about" ? "max-w-[280px]" : "max-w-[260px]";
+  const sizeClass = size === "about" ? "max-w-[280px]" : "max-w-[220px]";
 
   return (
     <div

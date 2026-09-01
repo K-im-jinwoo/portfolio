@@ -15,14 +15,71 @@ describe("portfolio content", () => {
     expect(additionalProjects).toHaveLength(2);
   });
 
-  it("resolves every slug and includes required case-study fields", () => {
+  it("resolves every slug and includes a technology stack", () => {
     for (const project of projects) {
       expect(getProjectBySlug(project.slug)).toEqual(project);
-      expect(project.problem.length).toBeGreaterThan(20);
-      expect(project.solution.length).toBeGreaterThan(20);
-      expect(project.result.length).toBeGreaterThan(20);
       expect(project.stack.length).toBeGreaterThan(0);
     }
+  });
+
+  it("prioritizes AI and automation evidence", () => {
+    expect(projects.map(({ slug }) => slug)).toEqual([
+      "wiki-knowledge-system",
+      "excel-data-converter",
+      "excel-export-optimization",
+      "academic-transfer-workflow",
+      "lg-voc-dashboard",
+    ]);
+    expect(featuredProjects.map(({ slug }) => slug)).toEqual([
+      "wiki-knowledge-system",
+      "excel-data-converter",
+      "excel-export-optimization",
+    ]);
+    expect(additionalProjects.map(({ slug }) => slug)).toEqual([
+      "academic-transfer-workflow",
+      "lg-voc-dashboard",
+    ]);
+  });
+
+  it("stores evidence without defensive visitor-facing copy", () => {
+    for (const project of projects) {
+      expect(project.snapshot).toEqual({
+        problem: expect.any(String),
+        role: expect.any(String),
+        change: expect.any(String),
+        scope: expect.any(String),
+      });
+      expect(Object.values(project.snapshot).every((value) => value.trim())).toBe(
+        true,
+      );
+      expect(project.verification.every((value) => value.trim())).toBe(true);
+      expect(project.limits.every((value) => value.trim())).toBe(true);
+      expect(project.verification.length).toBeGreaterThan(0);
+      expect(project.limits.length).toBeGreaterThan(0);
+    }
+
+    expect(JSON.stringify(projects)).not.toMatch(
+      /확인되지 않은 .*표시하지|수치는 표시하지 않습니다|근거 범위에 포함하지/,
+    );
+  });
+
+  it("explains why the Excel export image strategy was selected", () => {
+    const excelExport = getProjectBySlug("excel-export-optimization");
+
+    expect(excelExport?.decisions?.join(" ")).toMatch(/위해|때문/);
+  });
+
+  it("expresses the WIKI response times as a comparison", () => {
+    const wiki = getProjectBySlug("wiki-knowledge-system");
+
+    expect(wiki?.metrics.map(({ value, label }) => ({ value, label }))).toEqual([
+      { value: "약 80~120초", label: "기존 질의 흐름" },
+      { value: "10.3초", label: "자동화 후 최초 실행" },
+      { value: "1.02초", label: "동일 흐름 재실행" },
+    ]);
+    expect(wiki?.limits.join(" ")).toContain(
+      "원인을 분리 측정하지 않았습니다",
+    );
   });
 
   it("publishes email but never a phone number", () => {
