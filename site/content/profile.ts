@@ -1,3 +1,5 @@
+import type { CapabilityLink } from "@/components/capability-links";
+
 export const profile = {
   nameKo: "김진우",
   nameEn: "Jinwoo Kim",
@@ -11,8 +13,7 @@ export const profile = {
     {
       period: "2024.07 — 현재",
       organization: "(주)하이텍정보시스템",
-      description:
-        "Software Developer · MES, QMS, 학사·입학 업무 시스템 개발",
+      description: "MES·QMS·학사 시스템 개발과 반복 업무 자동화",
     },
   ],
   education: [
@@ -42,3 +43,23 @@ export const profile = {
     ],
   },
 } as const;
+
+export const capabilities = [
+  {
+    title: "AI 업무 흐름",
+    description: "기록·검색·출처 기반 답변을 하나의 흐름으로 연결했습니다.",
+    href: "/projects/wiki-knowledge-system",
+  },
+  {
+    title: "재사용 가능한 업무 자동화",
+    description:
+      "파일별 반복 규칙을 사용자가 재사용할 수 있는 도구로 구조화했습니다.",
+    href: "/projects/excel-data-converter",
+  },
+  {
+    title: "운영 문제 원인 분석",
+    description:
+      "고해상도 이미지 처리 병목을 찾아 리사이징과 Stream 로딩으로 개선했습니다.",
+    href: "/projects/excel-export-optimization",
+  },
+] satisfies CapabilityLink[];
