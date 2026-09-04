@@ -9,7 +9,7 @@ describe("home page", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: "업무 현장의 병목을 발견하고, 자동화와 AI로 실제 사용할 수 있는 시스템을 만듭니다.",
+        name: "업무 시스템의 병목을 발견하고, 직접 개선하는 개발자입니다.",
       }),
     ).toBeInTheDocument();
     expect(

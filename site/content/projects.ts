@@ -23,6 +23,27 @@ export type ProjectStep = {
   detail: string;
 };
 
+export type ProjectArchitecture = {
+  inputs: ProjectStep[];
+  router: ProjectStep;
+  branches: Array<{
+    label: string;
+    steps: ProjectStep[];
+  }>;
+  curation: ProjectStep[];
+  knowledgeBase: ProjectStep;
+};
+
+export type ProjectEvidence = {
+  src: string;
+  alt: string;
+  caption: string;
+  note: string;
+  query: string;
+  facts: string[];
+  sources: string[];
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -37,6 +58,8 @@ export type Project = {
   discovery?: string;
   decisions?: string[];
   system?: ProjectStep[];
+  architecture?: ProjectArchitecture;
+  evidence?: ProjectEvidence;
   verification: string[];
   limits: string[];
   metrics: ProjectMetric[];
@@ -53,59 +76,122 @@ export const projects: Project[] = [
       "Telegram",
       "n8n",
       "OpenAI Agents SDK",
+      "WIKI Capture Skill",
       "Python",
+      "Obsidian",
       "Markdown",
     ],
     summary:
-      "모바일 기록부터 WIKI 검색과 출처 기반 답변까지 연결한 개인 지식 관리 시스템입니다.",
+      "직접 기록하고 정리하는 부담을 줄이고, AI에게 질문해 필요한 지식을 찾을 수 있도록 만든 개인 지식 관리 시스템입니다.",
     tier: "featured",
     snapshot: {
       problem:
-        "Markdown WIKI의 기록과 검색 흐름이 분리되어 기존 질의 응답에 약 80~120초가 필요했습니다.",
-      role: "기획, 워크플로 설계, WIKI 질의 API 연계와 응답 구조 구현",
+        "Notion에 작업 내용을 직접 작성하고 분류·관리하는 과정이 번거로웠고, 시간이 지나면 어떤 내용을 기록했는지 잊어 필요한 자료를 다시 찾는 데에도 시간이 들었습니다.",
+      role: "문제 정의 · WIKI Capture Skill 제작 · 에이전트 워크플로 설계 · 실행 결과 검토",
       change:
-        "Telegram, n8n, WIKI 질의 API와 Agents SDK Tool Calling을 하나의 흐름으로 연결했습니다.",
+        "Codex 작업과 모바일 메모를 직접 지정한 Inbox에 모은 뒤, 검토·병합한 WIKI를 LLM 질의로 회수할 수 있도록 연결했습니다.",
       scope:
-        "개인 WIKI MVP에서 최초 실행과 동일 흐름 재실행 시간을 측정하고 출처 포함 응답을 확인했습니다.",
+        "WIKI Capture Skill, Telegram/n8n 수집·질의 흐름과 에이전트 내부 평가를 구성했습니다. 최종 Inbox 검토와 WIKI 병합은 직접 수행했습니다.",
     },
     comparison: {
       before: [
-        "모바일 기록과 Markdown WIKI 검색이 서로 분리되어 있었습니다.",
-        "기존 질의 흐름은 약 80~120초가 필요했습니다.",
+        "Notion에 작업 내용을 직접 작성하고 분류·관리해야 했습니다.",
+        "기록한 내용을 잊으면 필요한 자료를 다시 직접 찾아야 했습니다.",
       ],
       after: [
-        "Telegram 입력과 n8n 라우팅을 WIKI 질의 API에 연결했습니다.",
-        "조회 문서를 근거와 출처로 포함하는 응답 구조를 구성했습니다.",
+        "Codex 작업은 WIKI Capture Skill로, 모바일 메모는 Telegram/n8n을 통해 Inbox에 모았습니다.",
+        "Antigravity에서 기존 WIKI와 비교해 중복을 제거하거나 관련 문서를 병합한 뒤, LLM 질의로 자료와 출처를 확인했습니다.",
       ],
     },
     discovery:
-      "개인 WIKI의 문서가 늘면서 모바일에서 남긴 기록을 다시 찾고 질문하는 과정이 분리되어 반복 대기와 수작업 탐색이 발생했습니다.",
+      "Notion에 작업 내용을 직접 작성·관리하는 번거로움이 있었고, 시간이 지나면 무엇을 기록했는지 잊어 필요한 자료를 다시 찾는 과정도 반복되었습니다. 그래서 기록과 정리를 분리하고, 나중에는 AI에게 질문해 지식을 회수하는 흐름을 만들고자 했습니다.",
     decisions: [
-      "모바일 입력은 Telegram으로 통일하고 n8n에서 기록과 질문 명령을 분기했습니다.",
-      "WIKI 검색 책임은 별도 질의 API로 분리해 문서 조회 흐름을 재사용할 수 있게 구성했습니다.",
-      "Agents SDK Tool Calling으로 실제 조회 문서를 근거와 출처로 반환하도록 연결했습니다.",
+      "새 기록을 바로 WIKI에 확정하지 않고, 직접 지정한 Inbox(검토 대기 폴더)에 먼저 저장했습니다. 기존 WIKI와 비교해 중복 제거·문서 병합 후 반영하기 위해서입니다.",
+      "Telegram 하나로 모바일 메모와 /ask 질의를 함께 사용할 수 있도록, n8n에서 일반 메시지와 /ask 요청을 분기했습니다.",
+      "n8n은 입력·라우팅을 담당하고, WIKI 검색·답변은 별도 wiki-agent /ask API로 분리했습니다.",
+      "자동 수집과 최종 WIKI 반영을 분리해, Antigravity에서 사용자가 기존 문서와 비교·정제하도록 했습니다.",
+      "LLM 답변에 근거 문서와 WIKI 동기화 시각을 함께 반환해 답변의 근거와 최신성을 확인할 수 있도록 했습니다.",
     ],
-    system: [
-      { label: "입력", detail: "Telegram 기록 또는 질문" },
-      { label: "라우팅", detail: "n8n 명령 분기" },
-      { label: "검색", detail: "WIKI 질의 API와 문서 조회" },
-      { label: "응답", detail: "근거와 출처를 포함한 답변" },
-    ],
+    architecture: {
+      inputs: [
+        { label: "Codex 작업", detail: "WIKI Capture Skill" },
+        { label: "모바일 메모", detail: "Telegram 입력" },
+      ],
+      router: {
+        label: "n8n 라우팅",
+        detail: "Telegram 입력 확인 · 일반 메모와 /ask 질의 분기",
+      },
+      branches: [
+        {
+          label: "메모 수집",
+          steps: [
+            { label: "Markdown 변환", detail: "frontmatter와 status: inbox 생성" },
+            { label: "00_Inbox 저장", detail: "Google Drive에 업로드" },
+          ],
+        },
+        {
+          label: "/ask 질의",
+          steps: [
+            { label: "질문 추출·검증", detail: "/ask 명령과 질문 내용 분리" },
+            { label: "wiki-agent API", detail: "WIKI 검색·답변 생성" },
+            { label: "Telegram 응답", detail: "답변·출처·동기화 시각 반환" },
+          ],
+        },
+      ],
+      curation: [
+        { label: "Antigravity 수동 검토", detail: "기존 WIKI와 내용 비교" },
+        { label: "중복 제거·문서 병합", detail: "검토한 내용을 WIKI에 반영" },
+      ],
+      knowledgeBase: {
+        label: "Obsidian Markdown WIKI",
+        detail: "정리된 지식 저장 · LLM 질의 대상",
+      },
+    },
+    evidence: {
+      src: "/evidence/llm-wiki-ask-benchmark.png",
+      alt: "Telegram에서 실행한 LLM WIKI v2.3 25개 질문 평가 결과",
+      caption:
+        "실제 Telegram /ask 응답에서 평균 응답 시간 9.38초와 엄격 정확도 96%(24/25)를 확인했습니다.",
+      note: "2026-09-02 v2.3 · 25개 질문 · Oracle Cloud 동기화 WIKI 63개",
+      query: "/ask 2026-09-02 v2.3 25개 평가의 원문 측정값만 찾아줘",
+      facts: ["평균 응답 9.38초", "엄격 정확도 96%(24/25)", "평가 질문 25개"],
+      sources: [
+        "LLM_WIKI_Agent_Ask_Architecture.md",
+        "n8n_LLM_WIKI_질문_답변_MVP_구축.md",
+        "2026-09.md 운영 평가 로그",
+      ],
+    },
     verification: [
-      "기존 질의 흐름에서 약 80~120초가 필요했습니다.",
-      "자동화 후 최초 실행은 10.3초로 측정했습니다.",
-      "동일 흐름 재실행은 1.02초로 측정했습니다.",
-      "응답에 실제 조회 문서의 근거와 출처가 포함되는 것을 확인했습니다.",
+      "Oracle Cloud에 동기화된 WIKI 원본 63개를 대상으로 실제 질문 25개 평가 세트를 구성했습니다.",
+      "2026-09-02 v2.3 평가에서 평균 응답 시간 9.38초를 측정했습니다.",
+      "에이전트 내부 평가 기준 엄격 정확도는 25문항 중 24문항(96%)으로 기록되었습니다.",
+      "WIKI에 없는 질문 3건은 모두 임의 답변 없이 미발견으로 응답했습니다.",
+      "평가 실행에서 응답시간과 Request-ID, 토큰, Tool Calls 로그를 함께 대조했습니다.",
     ],
     limits: [
       "개인 Markdown WIKI를 대상으로 한 MVP입니다.",
-      "재실행 단축에 영향을 준 원인을 분리 측정하지 않았습니다.",
-      "문서 수, 실행 환경과 반복 횟수에 따른 성능 차이는 별도로 측정하지 않았습니다.",
+      "25개 질문에 대한 단일 평가 회차라 반복 측정의 변동성은 확인하지 않았습니다.",
+      "에이전트가 질문 생성·실행·채점을 수행한 내부 평가이므로, 독립적인 정확도 검증으로 해석할 수 없습니다.",
+      "WIKI에 없는 질문은 검색을 반복해 평균 14.50초가 소요되어 조기 종료가 필요합니다.",
+      "집계 질의에서는 정답을 확인했지만 10개 대상 중 4개의 출처만 응답에 포함되는 한계를 확인했습니다.",
+      "기록·검토에 걸리는 시간과 Notion 대비 생산성 변화는 별도 측정하지 않았습니다.",
     ],
     metrics: [
-      { value: "약 80~120초", label: "기존 질의 흐름" },
-      { value: "10.3초", label: "자동화 후 최초 실행" },
-      { value: "1.02초", label: "동일 흐름 재실행" },
+      {
+        value: "9.38초",
+        label: "평균 응답 시간",
+        note: "25개 질문 · Oracle Cloud 동기화 WIKI 63개",
+      },
+      {
+        value: "96%",
+        label: "엄격 정확도 (24/25)",
+        note: "에이전트 내부 평가 기준",
+      },
+      {
+        value: "3/3",
+        label: "WIKI 부재 질문 미발견",
+        note: "임의 답변 없이 처리",
+      },
     ],
   },
   {

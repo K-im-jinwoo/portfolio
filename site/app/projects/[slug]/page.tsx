@@ -3,11 +3,13 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { BeforeAfter } from "@/components/before-after";
 import { CaseStudySection } from "@/components/case-study-section";
+import { EvidenceCapture } from "@/components/evidence-capture";
 import { EvidenceList } from "@/components/evidence-list";
 import { ImpactMetrics } from "@/components/impact-metrics";
 import { ProcessSteps } from "@/components/process-steps";
 import { ProjectMeta } from "@/components/project-meta";
 import { ProjectSnapshotView } from "@/components/project-snapshot";
+import { SystemArchitecture } from "@/components/system-architecture";
 import { getProjectBySlug, projects } from "@/content/projects";
 
 type ProjectPageProps = {
@@ -77,19 +79,32 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           },
         ]
       : []),
-    ...(project.system?.length
+    ...(project.architecture
       ? [
           {
-            label: "SYSTEM",
-            title: "실제 시스템",
-            content: <ProcessSteps steps={project.system} />,
+            label: "SYSTEM ARCHITECTURE & WORKFLOW",
+            title: "수집·정제·질의 구조",
+            content: <SystemArchitecture architecture={project.architecture} />,
           },
         ]
-      : []),
+      : project.system?.length
+        ? [
+            {
+              label: "SYSTEM",
+              title: "실제 시스템",
+              content: <ProcessSteps steps={project.system} />,
+            },
+          ]
+        : []),
     {
       label: "VERIFICATION",
       title: "검증",
-      content: <EvidenceList items={project.verification} />,
+      content: (
+        <div className="grid gap-10">
+          <EvidenceList items={project.verification} />
+          {project.evidence && <EvidenceCapture evidence={project.evidence} />}
+        </div>
+      ),
     },
     {
       label: "SCOPE",

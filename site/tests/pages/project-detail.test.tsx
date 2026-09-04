@@ -41,14 +41,26 @@ describe("project detail routes", () => {
       screen.getByRole("heading", { name: "왜 이 구조를 선택했는가" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "실제 시스템" }),
+      screen.getByRole("heading", { name: "수집·정제·질의 구조" }),
     ).toBeInTheDocument();
+    expect(screen.getByText("WIKI Capture Skill")).toBeInTheDocument();
+    expect(screen.getByText("n8n 라우팅")).toBeInTheDocument();
+    expect(screen.getByText("Antigravity 수동 검토")).toBeInTheDocument();
+    expect(screen.getByText("wiki-agent API")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "검증" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: "Telegram에서 실행한 LLM WIKI v2.3 25개 질문 평가 결과",
+      }),
+    ).toHaveAttribute("src", "/evidence/llm-wiki-ask-benchmark.png");
+    expect(screen.getByTestId("evidence-summary-card")).toBeInTheDocument();
+    expect(screen.getByText("실제 /ask 질의")).toBeInTheDocument();
+    expect(screen.getByText("원본 Telegram 캡처 보기")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "적용 범위와 한계" }),
     ).toBeInTheDocument();
     expect(screen.queryByText("OVERVIEW")).not.toBeInTheDocument();
-    expect(screen.getByText("약 80~120초")).toBeInTheDocument();
+    expect(screen.getByText("9.38초")).toBeInTheDocument();
     expect(
       screen.getAllByTestId("case-study-index").map((node) => node.textContent),
     ).toEqual(["01", "02", "03", "04", "05", "06", "07"]);
@@ -100,7 +112,7 @@ describe("project detail routes", () => {
         screen.queryByRole("heading", { name: "왜 이 구조를 선택했는가" }),
       ).not.toBeInTheDocument();
       expect(
-        screen.queryByRole("heading", { name: "실제 시스템" }),
+        screen.queryByRole("heading", { name: "수집·정제·질의 구조" }),
       ).not.toBeInTheDocument();
       expect(
         screen.getAllByTestId("case-study-index").map((node) => node.textContent),

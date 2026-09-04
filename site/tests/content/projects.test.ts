@@ -69,16 +69,27 @@ describe("portfolio content", () => {
     expect(excelExport?.decisions?.join(" ")).toMatch(/위해|때문/);
   });
 
-  it("expresses the WIKI response times as a comparison", () => {
+  it("expresses the WIKI benchmark evidence with its evaluation scope", () => {
     const wiki = getProjectBySlug("wiki-knowledge-system");
 
     expect(wiki?.metrics.map(({ value, label }) => ({ value, label }))).toEqual([
-      { value: "약 80~120초", label: "기존 질의 흐름" },
-      { value: "10.3초", label: "자동화 후 최초 실행" },
-      { value: "1.02초", label: "동일 흐름 재실행" },
+      { value: "9.38초", label: "평균 응답 시간" },
+      { value: "96%", label: "엄격 정확도 (24/25)" },
+      { value: "3/3", label: "WIKI 부재 질문 미발견" },
     ]);
+    expect(wiki?.metrics[0]?.note).toBe(
+      "25개 질문 · Oracle Cloud 동기화 WIKI 63개",
+    );
+    expect(wiki?.verification.join(" ")).toContain("WIKI 원본 63개");
+    expect(wiki?.verification.join(" ")).not.toMatch(/P50|P95|73개/);
+    expect(wiki?.evidence).toMatchObject({
+      src: "/evidence/llm-wiki-ask-benchmark.png",
+      alt: expect.stringContaining("Telegram"),
+      query: expect.stringContaining("/ask"),
+      facts: expect.arrayContaining(["평균 응답 9.38초", "엄격 정확도 96%(24/25)"]),
+    });
     expect(wiki?.limits.join(" ")).toContain(
-      "원인을 분리 측정하지 않았습니다",
+      "반복 측정의 변동성은 확인하지 않았습니다",
     );
   });
 
