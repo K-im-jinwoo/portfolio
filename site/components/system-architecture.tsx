@@ -55,7 +55,7 @@ export function SystemArchitecture({
         ))}
       </div>
 
-      <FlowArrow label="입력 통합" />
+      <FlowArrow label={architecture.inputFlowLabel ?? "입력 통합"} />
       <FlowCard step={architecture.router} emphasized />
 
       <div className="grid gap-5 pt-2 lg:grid-cols-2">
@@ -91,14 +91,16 @@ export function SystemArchitecture({
         ))}
       </div>
 
-      <FlowArrow label="메모 저장 후 수동 정제" />
+      <FlowArrow
+        label={architecture.curationFlowLabel ?? "메모 저장 후 수동 정제"}
+      />
       <div className="grid gap-5 lg:grid-cols-2">
         {architecture.curation.map((step) => (
           <FlowCard key={step.label} step={step} />
         ))}
       </div>
 
-      <FlowArrow label="정리된 지식" />
+      <FlowArrow label={architecture.outputFlowLabel ?? "정리된 지식"} />
       <FlowCard step={architecture.knowledgeBase} emphasized />
     </div>
   );

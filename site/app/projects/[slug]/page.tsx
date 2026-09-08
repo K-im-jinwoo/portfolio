@@ -83,7 +83,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       ? [
           {
             label: "SYSTEM ARCHITECTURE & WORKFLOW",
-            title: "수집·정제·질의 구조",
+            title: project.architecture.title ?? "수집·정제·질의 구조",
             content: <SystemArchitecture architecture={project.architecture} />,
           },
         ]

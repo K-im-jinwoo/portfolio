@@ -66,6 +66,22 @@ describe("project detail routes", () => {
     ).toEqual(["01", "02", "03", "04", "05", "06", "07"]);
   });
 
+  it("renders a configurable workflow for the Excel converter case study", async () => {
+    render(
+      await ProjectPage({
+        params: Promise.resolve({ slug: "excel-data-converter" }),
+      }),
+    );
+
+    expect(
+      screen.getByRole("heading", { name: "분석·규칙·변환 구조" }),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("system-architecture")).toBeInTheDocument();
+    expect(screen.getByText("대상 Excel 파일")).toBeInTheDocument();
+    expect(screen.getByText("다중 조건 코드 매핑")).toBeInTheDocument();
+    expect(screen.getByText(/자연어 규칙 설정을 시도했지만/)).toBeInTheDocument();
+  });
+
   it("omits unavailable optional evidence sections", async () => {
     render(
       await ProjectPage({

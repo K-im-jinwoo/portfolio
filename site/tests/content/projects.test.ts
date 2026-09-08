@@ -66,7 +66,35 @@ describe("portfolio content", () => {
   it("explains why the Excel export image strategy was selected", () => {
     const excelExport = getProjectBySlug("excel-export-optimization");
 
-    expect(excelExport?.decisions?.join(" ")).toMatch(/위해|때문/);
+    expect(excelExport?.decisions?.join(" ")).toMatch(/대신|줄였습니다|적용했습니다/);
+  });
+
+  it("captures the evidence-backed Excel export diagnosis and safeguards", () => {
+    const excelExport = getProjectBySlug("excel-export-optimization");
+    const allText = JSON.stringify(excelExport);
+
+    expect(excelExport?.snapshot.problem).toContain("4,500px");
+    expect(excelExport?.snapshot.problem).toContain("3.6MB");
+    expect(excelExport?.snapshot.role).toContain("자원 해제");
+    expect(excelExport?.snapshot.change).toContain("Stream");
+    expect(excelExport?.snapshot.scope).toContain("단위 체계 통일");
+    expect(excelExport?.discovery).toContain("DPI");
+    expect(excelExport?.decisions?.join(" ")).toContain("400px");
+    expect(excelExport?.decisions?.join(" ")).toContain("슬롯");
+    expect(excelExport?.verification.join(" ")).toContain("처리 시간");
+    expect(allText).toContain("별도로 측정하지 않았습니다");
+  });
+
+  it("describes the Excel converter's progression from manual files to rules", () => {
+    const excelConverter = getProjectBySlug("excel-data-converter");
+
+    expect(excelConverter?.snapshot.problem).toContain("Grid");
+    expect(excelConverter?.comparison?.before.join(" ")).toContain("VBA");
+    expect(excelConverter?.discovery).toContain("프로그램");
+    expect(excelConverter?.decisions?.join(" ")).toContain("자연어");
+    expect(excelConverter?.decisions?.join(" ")).toContain("JSON");
+    expect(excelConverter?.verification.join(" ")).toContain("테스트 코드");
+    expect(excelConverter?.limits.join(" ")).toContain("FakeExcel");
   });
 
   it("expresses the WIKI benchmark evidence with its evaluation scope", () => {
