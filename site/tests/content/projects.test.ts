@@ -121,6 +121,20 @@ describe("portfolio content", () => {
     );
   });
 
+  it("describes the LG VOC project as labeling and visualization delivery", () => {
+    const lgVoc = getProjectBySlug("lg-voc-dashboard");
+
+    expect(lgVoc?.snapshot.problem).toContain("리뷰");
+    expect(lgVoc?.snapshot.role).toContain("3~4만");
+    expect(lgVoc?.stack).toContain("D3.js");
+    expect(lgVoc?.snapshot.change).toContain("워드클라우드");
+    expect(lgVoc?.snapshot.scope).toContain("사내 서버");
+    expect(lgVoc?.discovery).toContain("SVG");
+    expect(lgVoc?.decisions?.join(" ")).toContain("탭 전환");
+    expect(lgVoc?.verification.join(" ")).toContain("담당자 시연");
+    expect(lgVoc?.limits.join(" ")).toContain("정확도");
+  });
+
   it("publishes email but never a phone number", () => {
     expect(profile.email).toBe("jwkim6166@gmail.com");
     expect(JSON.stringify(profile)).not.toMatch(
