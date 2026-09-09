@@ -351,6 +351,97 @@ export const projects: Project[] = [
     metrics: [],
   },
   {
+    slug: "qms-approval-system",
+    title: "QMS 검사 결과 승인 시스템",
+    period: "2025.08.14 — 2026.04.02",
+    role: "검사 결과 승인 화면 개발·개선 · 권한 제어 · 업무 서비스 연동",
+    context: "UPORTAL QMS / 실제 운영 시스템",
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "DevExtreme",
+      "TanStack Query",
+      "MSSQL 연동",
+    ],
+    summary:
+      "검사 조건별 결과를 조회하고, 사용자 권한에 따라 검토·승인을 처리하는 QMS 업무 시스템입니다.",
+    tier: "supporting",
+    snapshot: {
+      problem:
+        "검사 결과는 Inspector·Reviewer·Approval 단계로 나뉘고, 사용자와 QC 유형에 따라 처리 가능한 승인 단계가 달랐습니다.",
+      role: "검사 결과 승인 화면 개발·개선, 사용자별 권한 확인, 기존 API·DB 프로시저 연동",
+      change:
+        "검사 조건별 승인 상태를 조회하고 권한에 따라 CONFIRM 버튼을 제어했습니다. 승인 결과는 트랜잭션으로 저장하고 QC 승인 흐름을 별도로 연결했습니다.",
+      scope:
+        "검사 결과 조회, 승인 목록·권한 확인, Reviewer·Approval 처리, QC 승인 분리, 기존 API·DB 프로시저 연동을 담당했으며 실제 운영 시스템에서 사용되었습니다.",
+    },
+    discovery:
+      "검사 결과 승인 화면에서는 같은 데이터라도 사용자와 승인 단계에 따라 가능한 동작이 달랐습니다. 또한 QC 승인은 일반 승인과 다른 조회·저장 경로를 사용해야 했습니다.",
+    decisions: [
+      "작업일·검사명·Work Center·품목·Shift를 기준으로 승인 대상과 현재 승인 상태를 조회했습니다.",
+      "사용자와 업무 조건을 기준으로 승인 권한을 확인하고 Reviewer·Approval 버튼 노출 여부를 제어했습니다.",
+      "QC 승인 흐름은 별도 조회·권한 확인 경로로 분리했습니다.",
+      "승인 저장은 트랜잭션으로 처리하고 성공 후 관련 조회 상태를 갱신했습니다.",
+    ],
+    architecture: {
+      title: "검사 결과 승인 흐름",
+      inputFlowLabel: "승인 대상 조회",
+      curationFlowLabel: "권한 확인·승인 처리",
+      outputFlowLabel: "결과 반영",
+      inputs: [
+        {
+          label: "검사 조건",
+          detail: "작업일·검사명·Work Center·품목·Shift",
+        },
+        {
+          label: "검사 결과",
+          detail: "검사 단계별 승인 대상과 현재 상태",
+        },
+      ],
+      router: {
+        label: "승인 목록 조회",
+        detail: "조건에 맞는 검사 결과와 승인 상태를 불러옴",
+      },
+      branches: [
+        {
+          label: "권한·상태 확인",
+          steps: [
+            { label: "사용자별 권한 확인", detail: "현재 사용자가 처리할 수 있는 승인 단계 확인" },
+            { label: "승인 버튼 제어", detail: "Reviewer·Approval 권한에 따라 CONFIRM 노출" },
+          ],
+        },
+        {
+          label: "승인 실행",
+          steps: [
+            { label: "QC 별도 승인", detail: "QC 승인 조회·권한 경로를 별도로 처리" },
+            { label: "트랜잭션 저장", detail: "승인 결과를 저장하고 성공 후 조회 상태 갱신" },
+          ],
+        },
+      ],
+      curation: [
+        { label: "처리 결과 안내", detail: "승인 성공·실패 메시지를 화면에 표시" },
+        { label: "승인 상태 갱신", detail: "저장 후 승인 목록과 권한 정보를 다시 조회" },
+      ],
+      knowledgeBase: {
+        label: "QMS 승인 결과",
+        detail: "기존 API와 DB 프로시저를 통해 반영된 검사 승인 상태",
+      },
+    },
+    verification: [
+      "검사 조건별 승인 목록 조회와 현재 승인 상태 표시를 구현했습니다.",
+      "사용자별 권한 확인 결과에 따라 Reviewer·Approval CONFIRM 버튼을 제어했습니다.",
+      "QC 승인 흐름을 별도로 적용하고 승인 결과 저장 후 조회 상태를 갱신했습니다.",
+      "승인 저장을 트랜잭션으로 처리하고 성공·실패 메시지를 안내했습니다.",
+      "2025년 8월 14일부터 2026년 4월 2일까지 개발·개선한 기능이 실제 운영 시스템에서 사용되었습니다.",
+    ],
+    limits: [
+      "DB 프로시저를 직접 작성한 범위는 아니며, 기존 API와 DB 프로시저를 화면 로직에 연동했습니다.",
+      "승인 처리 시간, 오류 감소율과 사용자 수 같은 운영 효과의 정량 수치는 별도로 측정하지 않았습니다.",
+    ],
+    metrics: [],
+  },
+  {
     slug: "academic-transfer-workflow",
     title: "전과 신청·승인 및 학적 연계 시스템",
     period: "2024.07 — 2026.02",

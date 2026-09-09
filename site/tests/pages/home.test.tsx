@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import HomePage from "@/app/page";
 
 describe("home page", () => {
-  it("shows identity, portrait, and all five project links", () => {
+  it("shows identity, portrait, and all six project links", () => {
     render(<HomePage />);
 
     expect(
@@ -16,7 +16,7 @@ describe("home page", () => {
       screen.getByAltText("노트북으로 작업하는 김진우 개발자 캐릭터"),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /프로젝트 보기/ })).toHaveLength(
-      5,
+      6,
     );
   });
 

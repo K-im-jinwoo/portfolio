@@ -12,6 +12,7 @@ describe("project detail routes", () => {
       { slug: "wiki-knowledge-system" },
       { slug: "excel-data-converter" },
       { slug: "excel-export-optimization" },
+      { slug: "qms-approval-system" },
       { slug: "academic-transfer-workflow" },
       { slug: "lg-voc-dashboard" },
     ]);
@@ -98,6 +99,21 @@ describe("project detail routes", () => {
     expect(
       screen.getByRole("heading", { name: "적용 범위와 한계" }),
     ).toBeInTheDocument();
+  });
+
+  it("renders the representative QMS approval workflow", async () => {
+    render(
+      await ProjectPage({
+        params: Promise.resolve({ slug: "qms-approval-system" }),
+      }),
+    );
+
+    expect(
+      screen.getByRole("heading", { name: "검사 결과 승인 흐름" }),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("system-architecture")).toBeInTheDocument();
+    expect(screen.getByText("QC 별도 승인")).toBeInTheDocument();
+    expect(screen.getByText("사용자별 권한 확인")).toBeInTheDocument();
   });
 
   it("omits optional evidence sections backed only by empty arrays", async () => {

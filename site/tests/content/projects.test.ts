@@ -8,11 +8,11 @@ import {
 import { profile } from "@/content/profile";
 
 describe("portfolio content", () => {
-  it("contains five unique projects split 3 and 2", () => {
-    expect(projects).toHaveLength(5);
-    expect(new Set(projects.map((project) => project.slug)).size).toBe(5);
+  it("contains six unique projects split 3 and 3", () => {
+    expect(projects).toHaveLength(6);
+    expect(new Set(projects.map((project) => project.slug)).size).toBe(6);
     expect(featuredProjects).toHaveLength(3);
-    expect(additionalProjects).toHaveLength(2);
+    expect(additionalProjects).toHaveLength(3);
   });
 
   it("resolves every slug and includes a technology stack", () => {
@@ -27,6 +27,7 @@ describe("portfolio content", () => {
       "wiki-knowledge-system",
       "excel-data-converter",
       "excel-export-optimization",
+      "qms-approval-system",
       "academic-transfer-workflow",
       "lg-voc-dashboard",
     ]);
@@ -36,6 +37,7 @@ describe("portfolio content", () => {
       "excel-export-optimization",
     ]);
     expect(additionalProjects.map(({ slug }) => slug)).toEqual([
+      "qms-approval-system",
       "academic-transfer-workflow",
       "lg-voc-dashboard",
     ]);
@@ -133,6 +135,24 @@ describe("portfolio content", () => {
     expect(lgVoc?.decisions?.join(" ")).toContain("탭 전환");
     expect(lgVoc?.verification.join(" ")).toContain("담당자 시연");
     expect(lgVoc?.limits.join(" ")).toContain("정확도");
+  });
+
+  it("describes QMS approval as the representative workflow", () => {
+    const qms = getProjectBySlug("qms-approval-system");
+
+    expect(qms?.period).toContain("2025.08.14");
+    expect(qms?.snapshot.problem).toContain("승인");
+    expect(qms?.snapshot.role).toContain("권한");
+    expect(qms?.snapshot.change).toContain("QC");
+    expect(qms?.architecture?.router.label).toContain("승인");
+    expect(
+      qms?.architecture?.branches
+        .flatMap(({ steps }) => steps)
+        .map(({ label, detail }) => `${label} ${detail}`)
+        .join(" "),
+    ).toContain("트랜잭션");
+    expect(qms?.verification.join(" ")).toContain("실제 운영");
+    expect(qms?.limits.join(" ")).toContain("프로시저");
   });
 
   it("publishes email but never a phone number", () => {
