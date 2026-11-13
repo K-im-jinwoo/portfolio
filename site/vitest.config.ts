@@ -12,6 +12,7 @@ export default defineConfig({
     },
   },
   test: {
+    include: ["tests/**/*.test.{ts,tsx}"],
     environment: "jsdom",
     maxWorkers: 1,
     pool: "forks",

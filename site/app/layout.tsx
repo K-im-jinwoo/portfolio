@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { profile } from "@/content/profile";
 import "./globals.css";
 
-const title = "김진우 | 업무 자동화 개발자";
-const description =
-  "업무 시스템과 AI 워크플로로 반복 업무와 운영 병목을 개선하는 개발자 김진우의 포트폴리오";
+const title = `${profile.nameKo} | ${profile.role}`;
+const description = profile.intro;
 const configuredOrigin = process.env.NEXT_PUBLIC_SITE_URL;
 
 function getMetadataBase() {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "김진우 업무 자동화 개발자",
+        alt: `${profile.nameKo} ${profile.role}`,
       },
     ],
   },

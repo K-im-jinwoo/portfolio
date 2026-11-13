@@ -43,7 +43,7 @@ export default function HomePage() {
         <ProjectList
           id="featured-work-title"
           eyebrow="SELECTED WORK"
-          title="업무의 병목을 찾아, 사용할 수 있는 시스템으로 만들었습니다."
+          title="주요 업무 시스템과 자동화 사례"
           projects={featuredProjects}
         />
       </section>
@@ -52,7 +52,7 @@ export default function HomePage() {
         <ProjectList
           id="additional-work-title"
           eyebrow="MORE WORK"
-          title="데이터 처리와 운영 개선 경험"
+          title="추가 업무·산학·개인 프로젝트"
           projects={additionalProjects}
         />
       </section>

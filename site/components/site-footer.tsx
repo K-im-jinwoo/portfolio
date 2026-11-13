@@ -15,9 +15,15 @@ export function SiteFooter() {
             {profile.email}
           </a>
         </div>
-        <p className="text-sm text-[var(--secondary-ink)]">
-          © 2026 Jinwoo Kim
-        </p>
+        <div className="flex flex-col gap-4 sm:items-end">
+          <nav aria-label="개인 비서 정보" className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-[var(--secondary-ink)]">
+            <a className="underline underline-offset-4" href="/apps/jw1">개인 비서 소개</a>
+            <a className="underline underline-offset-4" href="/apps/jw1/privacy">개인정보 안내</a>
+          </nav>
+          <p className="text-sm text-[var(--secondary-ink)]">
+            © 2026 Jinwoo Kim
+          </p>
+        </div>
       </div>
     </footer>
   );

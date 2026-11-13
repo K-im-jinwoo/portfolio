@@ -1,6 +1,7 @@
 import { CapabilityLinks } from "@/components/capability-links";
 import { CareerTimeline } from "@/components/career-timeline";
 import { ProfilePortrait } from "@/components/profile-portrait";
+import { SkillGroups } from "@/components/skill-groups";
 import { capabilities, profile } from "@/content/profile";
 
 export default function AboutPage() {
@@ -12,7 +13,7 @@ export default function AboutPage() {
             {profile.nameKo} / {profile.nameEn}
           </p>
           <h1 className="mt-5 max-w-3xl text-[clamp(2.6rem,6vw,5rem)] font-semibold leading-[1.08] tracking-[-0.05em] text-[var(--ink)]">
-            업무의 병목을 찾고, 개선을 실제 시스템으로 정착시킵니다.
+            {profile.headline}
           </h1>
           <p className="mt-8 max-w-2xl text-base leading-8 text-[var(--secondary-ink)] sm:text-lg">
             {profile.intro}
@@ -29,6 +30,19 @@ export default function AboutPage() {
           역량을 프로젝트 증거로 연결했습니다.
         </h2>
         <CapabilityLinks items={capabilities} />
+      </section>
+
+      <section className="site-container py-20" aria-labelledby="skills-title">
+        <p className="text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
+          TECHNOLOGIES
+        </p>
+        <h2
+          id="skills-title"
+          className="mb-12 mt-4 text-3xl font-semibold tracking-[-0.04em] text-[var(--ink)] sm:text-4xl"
+        >
+          업무 시스템과 자동화를 연결하는 기술
+        </h2>
+        <SkillGroups skills={profile.skills} />
       </section>
 
       <section className="site-container py-20">

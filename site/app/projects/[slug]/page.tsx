@@ -65,7 +65,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       ? [
           {
             label: "DISCOVERY",
-            title: "문제를 어떻게 발견했는가",
+            title: "업무 배경",
             content: <p>{project.discovery}</p>,
           },
         ]
@@ -74,7 +74,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       ? [
           {
             label: "DECISIONS",
-            title: "왜 이 구조를 선택했는가",
+            title: "구현 내용과 선택 배경",
             content: <EvidenceList items={project.decisions} />,
           },
         ]
@@ -98,7 +98,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         : []),
     {
       label: "VERIFICATION",
-      title: "검증",
+      title: "확인 기록",
       content: (
         <div className="grid gap-10">
           <EvidenceList items={project.verification} />
@@ -123,7 +123,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           ← 모든 프로젝트
         </a>
         <p className="mt-16 text-sm font-semibold tracking-[0.1em] text-[var(--secondary-ink)]">
-          CASE STUDY
+          CASE STUDY / {project.projectKind}
         </p>
         <h1 className="mt-5 max-w-4xl text-[clamp(2.6rem,6vw,5rem)] font-semibold leading-[1.08] tracking-[-0.05em] text-[var(--ink)]">
           {project.title}

@@ -10,6 +10,8 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
 
 # next.js
 /.next/
@@ -36,3 +38,7 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+/.openai/playwright.chrome.config.mjs
+/.openai/playwright-report/
+/.openai/test-results/
+/.openai/unit-report.json

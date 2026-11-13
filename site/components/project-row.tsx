@@ -16,6 +16,9 @@ export function ProjectRow({ index, project }: ProjectRowProps) {
           {String(index + 1).padStart(2, "0")}
         </span>
         <span>
+          <span className="mb-2 block text-xs font-medium tracking-[0.03em] text-[var(--secondary-ink)]">
+            {project.projectKind}
+          </span>
           <span className="block text-xl font-semibold tracking-[-0.025em] text-[var(--ink)] sm:text-2xl">
             {project.title}
           </span>

@@ -26,7 +26,7 @@ export function CaseStudySection({
           {label}
         </p>
       </div>
-      <div>
+      <div className="min-w-0">
         <h2 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--ink)] sm:text-3xl">
           {title}
         </h2>

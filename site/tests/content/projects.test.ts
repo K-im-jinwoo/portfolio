@@ -8,11 +8,16 @@ import {
 import { profile } from "@/content/profile";
 
 describe("portfolio content", () => {
-  it("contains six unique projects split 3 and 3", () => {
-    expect(projects).toHaveLength(6);
-    expect(new Set(projects.map((project) => project.slug)).size).toBe(6);
-    expect(featuredProjects).toHaveLength(3);
-    expect(additionalProjects).toHaveLength(3);
+  it("partitions unique project URLs into featured and supporting work", () => {
+    expect(projects.length).toBeGreaterThan(0);
+    expect(new Set(projects.map((project) => project.slug)).size).toBe(projects.length);
+    expect(featuredProjects.length).toBeGreaterThan(0);
+    expect(additionalProjects.length).toBeGreaterThan(0);
+    expect([...featuredProjects, ...additionalProjects]).toHaveLength(projects.length);
+    for (const project of projects) {
+      expect(project.slug).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+      expect(["featured", "supporting"]).toContain(project.tier);
+    }
   });
 
   it("resolves every slug and includes a technology stack", () => {
@@ -22,25 +27,29 @@ describe("portfolio content", () => {
     }
   });
 
-  it("prioritizes AI and automation evidence", () => {
-    expect(projects.map(({ slug }) => slug)).toEqual([
+  it("prioritizes business systems and the Excel workflow", () => {
+    expect(projects.map(({ slug }) => slug)).toEqual(expect.arrayContaining([
       "wiki-knowledge-system",
       "excel-data-converter",
       "excel-export-optimization",
+      "production-quality-dashboard",
+      "market-research-agent",
       "qms-approval-system",
       "academic-transfer-workflow",
       "lg-voc-dashboard",
-    ]);
+    ]));
     expect(featuredProjects.map(({ slug }) => slug)).toEqual([
-      "wiki-knowledge-system",
-      "excel-data-converter",
-      "excel-export-optimization",
-    ]);
-    expect(additionalProjects.map(({ slug }) => slug)).toEqual([
-      "qms-approval-system",
       "academic-transfer-workflow",
-      "lg-voc-dashboard",
+      "qms-approval-system",
+      "excel-data-converter",
+      "wiki-knowledge-system",
     ]);
+    expect(additionalProjects.map(({ slug }) => slug)).toEqual(expect.arrayContaining([
+      "production-quality-dashboard",
+      "market-research-agent",
+      "excel-export-optimization",
+      "lg-voc-dashboard",
+    ]));
   });
 
   it("stores evidence without defensive visitor-facing copy", () => {
@@ -77,14 +86,10 @@ describe("portfolio content", () => {
 
     expect(excelExport?.snapshot.problem).toContain("4,500px");
     expect(excelExport?.snapshot.problem).toContain("3.6MB");
-    expect(excelExport?.snapshot.role).toContain("자원 해제");
     expect(excelExport?.snapshot.change).toContain("Stream");
-    expect(excelExport?.snapshot.scope).toContain("단위 체계 통일");
-    expect(excelExport?.discovery).toContain("DPI");
     expect(excelExport?.decisions?.join(" ")).toContain("400px");
-    expect(excelExport?.decisions?.join(" ")).toContain("슬롯");
-    expect(excelExport?.verification.join(" ")).toContain("처리 시간");
-    expect(allText).toContain("별도로 측정하지 않았습니다");
+    expect(excelExport?.metrics).toEqual([]);
+    expect(allText).toMatch(/측정|측정치/);
   });
 
   it("describes the Excel converter's progression from manual files to rules", () => {
@@ -95,32 +100,26 @@ describe("portfolio content", () => {
     expect(excelConverter?.discovery).toContain("프로그램");
     expect(excelConverter?.decisions?.join(" ")).toContain("자연어");
     expect(excelConverter?.decisions?.join(" ")).toContain("JSON");
-    expect(excelConverter?.verification.join(" ")).toContain("테스트 코드");
+    expect(excelConverter?.snapshot.role).toContain("AI");
     expect(excelConverter?.limits.join(" ")).toContain("FakeExcel");
   });
 
-  it("expresses the WIKI benchmark evidence with its evaluation scope", () => {
+  it("distinguishes project origins and keeps historical AI scores out of current WIKI claims", () => {
     const wiki = getProjectBySlug("wiki-knowledge-system");
 
-    expect(wiki?.metrics.map(({ value, label }) => ({ value, label }))).toEqual([
-      { value: "9.38초", label: "평균 응답 시간" },
-      { value: "96%", label: "엄격 정확도 (24/25)" },
-      { value: "3/3", label: "WIKI 부재 질문 미발견" },
-    ]);
-    expect(wiki?.metrics[0]?.note).toBe(
-      "25개 질문 · Oracle Cloud 동기화 WIKI 63개",
-    );
-    expect(wiki?.verification.join(" ")).toContain("WIKI 원본 63개");
-    expect(wiki?.verification.join(" ")).not.toMatch(/P50|P95|73개/);
-    expect(wiki?.evidence).toMatchObject({
-      src: "/evidence/llm-wiki-ask-benchmark.png",
-      alt: expect.stringContaining("Telegram"),
-      query: expect.stringContaining("/ask"),
-      facts: expect.arrayContaining(["평균 응답 9.38초", "엄격 정확도 96%(24/25)"]),
-    });
-    expect(wiki?.limits.join(" ")).toContain(
-      "반복 측정의 변동성은 확인하지 않았습니다",
-    );
+    expect(wiki?.projectKind).toBe("개인 프로젝트");
+    expect(getProjectBySlug("market-research-agent")?.projectKind).toBe("개인 프로젝트");
+    expect(getProjectBySlug("lg-voc-dashboard")?.projectKind).toBe("산학 프로젝트");
+    expect(getProjectBySlug("qms-approval-system")?.projectKind).toBe("업무 프로젝트");
+    expect(getProjectBySlug("excel-data-converter")?.period).toBe("2026");
+    expect(wiki?.metrics).toEqual([]);
+    expect(wiki?.verification.join(" ")).toMatch(/AI|에이전트 내부 평가/);
+    expect(wiki?.verification.join(" ")).not.toMatch(/P50|P95/);
+    expect(wiki?.evidence).toBeUndefined();
+    expect(JSON.stringify(wiki)).not.toMatch(/96%|9\.38|1\.02|216개|146\.625/);
+    expect(wiki?.limits.join(" ")).toContain("Hermes");
+    expect(wiki?.snapshot.role).toContain("AI 구현");
+    expect(wiki?.snapshot.scope).toContain("검토 보조");
   });
 
   it("describes the LG VOC project as labeling and visualization delivery", () => {
@@ -142,7 +141,7 @@ describe("portfolio content", () => {
 
     expect(qms?.period).toContain("2025.08.14");
     expect(qms?.snapshot.problem).toContain("승인");
-    expect(qms?.snapshot.role).toContain("권한");
+    expect(qms?.snapshot.problem).toContain("권한");
     expect(qms?.snapshot.change).toContain("QC");
     expect(qms?.architecture?.router.label).toContain("승인");
     expect(
@@ -150,7 +149,7 @@ describe("portfolio content", () => {
         .flatMap(({ steps }) => steps)
         .map(({ label, detail }) => `${label} ${detail}`)
         .join(" "),
-    ).toContain("트랜잭션");
+    ).toContain("승인");
     expect(qms?.verification.join(" ")).toContain("실제 운영");
     expect(qms?.limits.join(" ")).toContain("프로시저");
   });

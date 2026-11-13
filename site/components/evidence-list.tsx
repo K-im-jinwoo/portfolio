@@ -9,7 +9,7 @@ export function EvidenceList({ items }: { items: string[] }) {
           <span aria-hidden="true" className="text-[var(--secondary-ink)]">
             —
           </span>
-          <span>{item}</span>
+          <span className="min-w-0">{item}</span>
         </li>
       ))}
     </ul>

@@ -3,16 +3,17 @@ import type { CapabilityLink } from "@/components/capability-links";
 export const profile = {
   nameKo: "김진우",
   nameEn: "Jinwoo Kim",
-  role: "AI·업무자동화 개발자",
-  headline: "업무 시스템의 병목을 발견하고, 직접 개선하는 개발자입니다.",
+  role: "업무 시스템 개발 · AI 활용 자동화",
+  headline:
+    "업무 시스템 개발·유지보수에 참여하며 AI로 반복 작업을 자동화합니다.",
   email: "jwkim6166@gmail.com",
   intro:
-    "MES·QMS 등 실제 업무 시스템을 개발·운영하면서 Excel 처리 성능 개선과 반복 데이터 변환 자동화 도구를 직접 구현했습니다. 또한 OpenAI Agents SDK 기반 WIKI 질의 API와 n8n을 연계해 기록부터 검색·질의까지 연결되는 개인 지식 관리 시스템을 구축했습니다. 기술 자체보다 실제 사용되는 과정의 병목을 찾고, 개선안을 구현해 사용 가능한 형태로 정착시키는 것을 중요하게 생각합니다.",
+    "2024년 7월부터 (주)하이텍정보시스템에서 C#·.NET 기반 학사·MES와 React·TypeScript 기반 QMS·모니터링 화면 개발·유지보수에 참여하고 있습니다. 기존 MSSQL 프로시저와 사내 API를 연계해 권한·승인 상태별 업무 흐름을 반영했으며, 학사·QMS 기능은 실제 운영 환경에서 사용되고 있습니다. 최근 자동화 도구·대시보드와 개인 프로젝트에서는 요구사항과 샘플 전달 및 실행 결과 확인을 맡았으며, 코드와 테스트는 AI 코딩 도구가 구현했습니다.",
   experience: [
     {
       period: "2024.07 — 현재",
       organization: "(주)하이텍정보시스템",
-      description: "MES·QMS·학사 시스템 개발과 반복 업무 자동화",
+      description: "학사·MES·QMS 업무 시스템 개발·유지보수 참여 및 반복 업무 자동화",
     },
   ],
   education: [
@@ -23,42 +24,55 @@ export const profile = {
     },
   ],
   skills: {
-    Languages: ["C#", "TypeScript", "JavaScript", "Python", "SQL"],
-    "Web & Desktop": [
+    "업무 사용 (개발·유지보수)": [
+      "C#",
+      "JavaScript",
+      "TypeScript",
       "React",
+      "Next.js",
       "ASP.NET WebForms",
-      "Django",
-      ".NET Framework",
       "WinForms",
+      ".NET Framework",
       "DevExpress",
+      "DevExtreme",
     ],
-    "Data & Integration": ["MSSQL", "Stored Procedure", "REST API"],
-    "AI & Automation": [
-      "OpenAI API",
-      "OpenAI Agents SDK",
+    "데이터 · 운영 연계": [
+      "MSSQL (기존 Stored Procedure·API 연계)",
+      "REST API 연동",
+      "VBA 매크로 삽입·코드 변환",
+      "Git",
+      "PM2",
+    ],
+    "AI 도구 활용 구축 (개인·자동화)": [
+      "Python",
+      "PySide6",
+      "FastAPI",
+      "OpenAI API / Agents SDK",
+      "Hermes Agent",
       "n8n",
-      "Tool Calling",
-      "Excel Automation",
+      "SQLite",
+      "Docker",
     ],
   },
 } as const;
 
 export const capabilities = [
   {
-    title: "AI 업무 흐름",
-    description: "기록·검색·출처 기반 답변을 하나의 흐름으로 연결했습니다.",
-    href: "/projects/wiki-knowledge-system",
+    title: "학사·입학 업무 화면 개발·유지보수",
+    description:
+      "7개 탭 전과 처리, 16개 탭 통합학적조회, 23개 입학전형 확정 처리 등 실제 운영 학사 화면 개발에 참여했습니다.",
+    href: "/projects/academic-transfer-workflow",
   },
   {
-    title: "재사용 가능한 업무 자동화",
+    title: "QMS 권한·승인 연동 및 화면 개선",
     description:
-      "파일별 반복 규칙을 사용자가 재사용할 수 있는 도구로 구조화했습니다.",
+      "기존 API·DB 프로시저를 연계해 단계별 검사 승인과 탭별 조회·변경 항목 저장 기능을 운영 화면에 반영했습니다.",
+    href: "/projects/qms-approval-system",
+  },
+  {
+    title: "수작업 코드 변환의 AI 도구화",
+    description:
+      "반복하던 Excel 매크로 삽입·코드 변환 수작업을 바탕으로 AI에 구현을 맡겨 PySide6 변환 도구를 제작했습니다.",
     href: "/projects/excel-data-converter",
-  },
-  {
-    title: "운영 문제 원인 분석",
-    description:
-      "고해상도 이미지 처리 병목을 찾아 리사이징과 Stream 로딩으로 개선했습니다.",
-    href: "/projects/excel-export-optimization",
   },
 ] satisfies CapabilityLink[];
